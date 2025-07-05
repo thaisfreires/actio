@@ -1,12 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoginRequest, User } from '../models/user.model';
-import { Stock } from '../models/stock.model';
-import { Wallet } from '../models/wallet.model';
-import { Movement } from '../models/movement.model';
-import { Transaction } from '../models/transaction.model';
-import { Account } from '../models/account.model';
+import { LoginRequest } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
