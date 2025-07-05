@@ -1,6 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { LoginRequest } from '../models/user.model';
 
 @Injectable({
@@ -8,13 +8,20 @@ import { LoginRequest } from '../models/user.model';
 })
 export class AuthService {
 
-  authUrl: string = 'http://localhost:3000/auth/login';
+  private authUrl = 'http://localhost:8080/auth/login';
 
   constructor(private http: HttpClient) { }
 
-  login(request: LoginRequest): Observable<HttpResponse<void>> {
-    return this.http.post<void>(this.authUrl, request, {
+  login(request: LoginRequest): Observable<HttpResponse<any>> {
+    return this.http.post(this.authUrl, request, {
       observe: 'response'
-    });
+    }).pipe(
+      tap(response => {
+        const token = response.body?.token || response.headers.get('Authorization');
+        if (token) {
+          localStorage.setItem('token', token.replace('Bearer ', ''));
+        }
+      })
+    );
   }
 }
