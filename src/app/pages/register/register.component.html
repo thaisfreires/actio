@@ -1,0 +1,22 @@
+<h2>Registrar Novo Usuário</h2>
+
+<form (ngSubmit)="onRegister()" #formRef="ngForm">
+  <label>Nome:</label>
+  <input type="text" [(ngModel)]="form.name" name="name" required />
+
+  <label>NIF:</label>
+  <input type="text" [(ngModel)]="form.nif" name="nif" pattern="\\d{9}" required />
+
+  <label>Data de nascimento:</label>
+  <input type="date" [(ngModel)]="form.date_of_birth" name="date_of_birth" required />
+
+  <label>Email:</label>
+  <input type="email" [(ngModel)]="form.email" name="email" required />
+
+  <label>Senha:</label>
+  <input type="password" [(ngModel)]="form.password" name="password" required minlength="9" />
+
+  <button type="submit" [disabled]="formRef.invalid">Registrar</button>
+</form>
+
+<p *ngIf="message">{{ message }}</p>

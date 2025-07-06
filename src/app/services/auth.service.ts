@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { LoginRequest } from '../models/user.model';
+import { LoginRequest, UserRegistrationRequest } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +23,8 @@ export class AuthService {
         }
       })
     );
+  }
+  register(request: UserRegistrationRequest): Observable<any> {
+    return this.http.post('http://localhost:8080/auth/save', request);
   }
 }
