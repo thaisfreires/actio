@@ -20,17 +20,20 @@ export class RegisterComponent {
   };
 
   message = '';
+  isError: boolean = false;
 
   constructor(private authService: AuthService) {}
 
   onRegister() {
     this.authService.register(this.form).subscribe({
       next: (res) => {
-        this.message = 'Usuário registrado com sucesso!';
+        this.message = 'User registered successfully.';
+        this.isError = false;
         console.log(res);
       },
       error: (err) => {
-        this.message = 'Erro ao registrar: ' + (err.error || 'Erro desconhecido');
+        this.message = 'Failed to register: ' + (err.error || 'Unknown');
+        this.isError = true;
         console.error(err);
       }
     });

@@ -18,5 +18,11 @@
 
   <button type="submit">Registrar</button>
 </form>
-
-<p *ngIf="message">{{ message }}</p>
+@if (message) {
+  <div class="alert" [ngClass]="{
+    'alert-success': !isError,
+     'alert-danger': isError
+     }" role="alert">
+    {{ message }}
+  </div>
+}
