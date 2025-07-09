@@ -1,8 +1,66 @@
-<h2>Login</h2>
-<form (ngSubmit)="onLogin()">
-  <input type="email" [(ngModel)]="email" name="email" placeholder="Email" required />
-  <input type="password" [(ngModel)]="password" name="password" placeholder="Senha" required />
-  <button type="submit">Entrar</button>
-</form>
-<p>{{message}}   
-</p>
+<div class="register-page-d-flex">
+  <div class="form-container">
+    <h2>Login</h2>
+    <p>Please enter your credentials to login.</p>
+    <form (ngSubmit)="onLogin(form.valid)" [formGroup]="form">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>Email:</label>
+          <input
+            mdbInput
+            class="form-control"
+            formControlName="email"
+            placeholder="Enter your email"
+          />
+          @if (f['email'].touched && f['email'].invalid) {
+          <div class="text-danger">
+            @if (f['email'].errors?.['required']) {
+            <div>Email is required.</div>
+            } @if (f['email'].errors?.['email']) {
+            <div>Invalid email address.</div>
+            }
+          </div>
+          }
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>Password:</label>
+          <input
+            mdbInput
+            type="password"
+            class="form-control"
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+          @if (f['password'].touched && f['password'].invalid) {
+          <div class="text-danger">
+            @if (f['password'].errors?.['required']) {
+            <div>Password is required.</div>
+            } @if (f['password'].errors?.['minlength']) {
+            <div>Minimum of 9 characters.</div>
+            }
+          </div>
+          }
+        </div>
+        <div class="col-12 mb-3">
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="form.invalid"
+          >
+            Login
+          </button>
+        </div>
+        @if (message) {
+        <div [ngClass]="{ 'text-success': !isError, 'text-danger': isError }">
+          {{ message }}
+        </div>
+        }
+      </div>
+    </form>
+  </div>
+  <div class="branding-container">
+    <div class="logo">
+      <img src="assets/images/logo.png" alt="Actio Logo" class="logo-img" />
+    </div>
+  </div>
+</div>
