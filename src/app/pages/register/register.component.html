@@ -1,22 +1,74 @@
-<h2>Registrar Novo Usuário</h2>
+<form [formGroup]="form" (ngSubmit)="onRegister(form.valid)">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label>Name:</label>
+      <input mdbInput class="form-control" formControlName="name" />
+      @if (f['name'].touched && f['name'].invalid) {
+        <div class="text-danger">Name is required.</div>
+      }
+    </div>
 
-<form (ngSubmit)="onRegister()" #formRef="ngForm">
-  <label>Nome:</label>
-  <input type="text" [(ngModel)]="form.name" name="name" required />
+    <div class="col-md-6 mb-3">
+      <label>NIF:</label>
+      <input mdbInput class="form-control" formControlName="nif" />
+      @if (f['nif'].touched && f['nif'].invalid) {
+        <div class="text-danger">
+          @if (f['nif'].errors?.['required']) {
+            <div>NIF is required.</div>
+          }
+          @if (f['nif'].errors?.['pattern']) {
+            <div>NIF must contain 9 digits.</div>
+          }
+        </div>
+      }
+    </div>
 
-  <label>NIF:</label>
-  <input type="text" [(ngModel)]="form.nif" name="nif" required />
+    <div class="col-md-6 mb-3">
+      <label>Date of Birth:</label>
+      <input mdbInput type="date" class="form-control" formControlName="date_of_birth" />
+      @if (f['date_of_birth'].touched && f['date_of_birth'].invalid) {
+        <div class="text-danger">Date of birth is required.</div>
+      }
+    </div>
 
-  <label>Data de nascimento:</label>
-  <input type="date" [(ngModel)]="form.date_of_birth" name="date_of_birth" required />
+    <div class="col-md-6 mb-3">
+      <label>Email:</label>
+      <input mdbInput type="email" class="form-control" formControlName="email" />
+      @if (f['email'].touched && f['email'].invalid) {
+        <div class="text-danger">
+          @if (f['email'].errors?.['required']) {
+            <div>Email is required.</div>
+          }
+          @if (f['email'].errors?.['email']) {
+            <div>Invalid email address.</div>
+          }
+        </div>
+      }
+    </div>
 
-  <label>Email:</label>
-  <input type="email" [(ngModel)]="form.email" name="email" required />
+    <div class="col-md-6 mb-3">
+      <label>Password:</label>
+      <input mdbInput type="password" class="form-control" formControlName="password" />
+      @if (f['password'].touched && f['password'].invalid) {
+        <div class="text-danger">
+          @if (f['password'].errors?.['required']) {
+            <div>Password is required.</div>
+          }
+          @if (f['password'].errors?.['minlength']) {
+            <div>Minimum of 9 characters.</div>
+          }
+        </div>
+      }
+    </div>
 
-  <label>Senha:</label>
-  <input type="password" [(ngModel)]="form.password" name="password" />
+    <div class="col-12 mb-3">
+      <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Register</button>
+    </div>
 
-  <button type="submit">Registrar</button>
+    @if (message) {
+      <div [ngClass]="{ 'text-success': !isError, 'text-danger': isError }">
+        {{ message }}
+      </div>
+    }
+  </div>
 </form>
-
-<p *ngIf="message">{{ message }}</p>

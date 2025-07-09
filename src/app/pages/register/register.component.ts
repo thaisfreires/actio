@@ -2,37 +2,52 @@ import { Component } from '@angular/core';
 import { UserRegistrationRequest } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 
 @Component({
   selector: 'app-register',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,MdbFormsModule,ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-  form: UserRegistrationRequest = {
-    name: '',
-    nif: '',
-    date_of_birth: '',
-    email: '',
-    password: ''
-  };
-
+  form: FormGroup;
   message = '';
+  isError = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      nif: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
+      date_of_birth: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
 
-  onRegister() {
-    this.authService.register(this.form).subscribe({
+  onRegister(valid: boolean) {
+    if (!valid) return;
+
+    const userRequest = this.form.value; // <-- equivale a UserRegistrationRequest
+
+    this.authService.register(userRequest).subscribe({
       next: (res) => {
-        this.message = 'Usuário registrado com sucesso!';
-        console.log(res);
+        this.message = 'User registered successfully!';
+        this.form.reset(); 
+        this.isError = false;
+        console.log(res); 
       },
       error: (err) => {
-        this.message = 'Erro ao registrar: ' + (err.error || 'Erro desconhecido');
+        this.message = 'Fail to register: ' + (err.error?.message || 'Unknown error');
+        this.form.reset();
+        this.isError = true;
         console.error(err);
       }
     });
+  }
+
+  get f() {
+    return this.form.controls;
   }
 }
