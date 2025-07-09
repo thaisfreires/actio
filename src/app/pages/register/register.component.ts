@@ -22,14 +22,14 @@ export class RegisterComponent {
       nif: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
       date_of_birth: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(9)]]
     });
   }
 
   onRegister(valid: boolean) {
     if (!valid) return;
 
-    const userRequest = this.form.value; // <-- equivale a UserRegistrationRequest
+    const userRequest = this.form.value;
 
     this.authService.register(userRequest).subscribe({
       next: (res) => {
