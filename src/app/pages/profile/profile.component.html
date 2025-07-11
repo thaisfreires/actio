@@ -1,0 +1,29 @@
+<div class="account-settings" *ngIf="profileData">
+  <h2>Account Setting</h2>
+  <p class="subtitle">My Profile</p>
+
+  <div class="avatar-container">
+    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Avatar" class="avatar" />
+  </div>
+
+  <div class="info-block">
+    <strong>Full Name:</strong> {{ profileData.fullName }}
+  </div>
+  <div class="info-block">
+    <strong>Tax ID (NIF):</strong> {{ profileData.nif }}
+  </div>
+  <div class="info-block">
+    <strong>Date of Birth:</strong> {{ profileData.birthDate | date:'dd/MM/yyyy' }}
+  </div>
+  <div class="info-block">
+    <strong>Email:</strong> {{ profileData.email }}
+  </div>
+
+  <div class="actions">
+    <button class="save" (click)="goToEdit()">Edit Profile</button>
+  </div>
+</div>
+
+<div *ngIf="!profileData">
+  <p>Loading profile...</p>
+</div>

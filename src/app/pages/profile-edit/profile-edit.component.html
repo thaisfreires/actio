@@ -1,0 +1,17 @@
+<div class="account-settings">
+    <h2>Edit Profile</h2>
+    <p class="subtitle">Update your personal information</p>
+  
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <input formControlName="fullName" type="text" placeholder="Full Name" />
+      <input formControlName="nif" type="text" placeholder="Tax ID (NIF)" />
+      <input formControlName="birthDate" type="date" placeholder="Date of Birth" />
+      <input formControlName="email" type="email" placeholder="Email Address" />
+  
+      <div class="actions">
+        <button type="button" class="discard" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="save">Save Changes</button>
+      </div>
+    </form>
+  </div>
+  
