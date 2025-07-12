@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { LoginRequest } from '../../models/user.model';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { CommonModule } from '@angular/common';
@@ -25,23 +24,23 @@ export class LoginComponent {
   }
 
   onLogin(valid: boolean) {
+    console.log("Form valid:" , valid);
     if(!valid) return;
+    
 
     const userLogin = this.form.value;
 
     this.authService.login(userLogin).subscribe({
       next: (response) => {
-        this.message = 'Login successful!';
         this.isError = false;
-        this.form.reset();
         console.log(response);
         this.redirect(); 
       },
       error: (err) => {
-        this.message = 'Fail to login ' + (err.error || 'Unkown error');
-        this.form.reset();
+        this.message = 'Email or password is incorrect.';
         this.isError = true;
         console.error(err);
+        this.form.reset();
       },
     });
   }

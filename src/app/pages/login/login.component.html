@@ -1,10 +1,10 @@
 <div class="login-page d-flex">
-  <div class="form-container">
-    <h2>Login</h2>
-    <p>Please enter your credentials to login.</p>
+  <div class="form-container p-4 shadow rounded bg-white">
+    <h2 class="text-center mb-4">Login</h2>
+    <p class="text-center">Please enter your credentials to login.</p>
     <form (ngSubmit)="onLogin(form.valid)" [formGroup]="form">
       <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-12 mb-3">
           <label>Email:</label>
           <input
             mdbInput
@@ -22,7 +22,7 @@
           </div>
           }
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-12 mb-3">
           <label>Password:</label>
           <input
             mdbInput
@@ -41,7 +41,7 @@
           </div>
           }
         </div>
-        <div class="col-12 mb-3">
+        <div class="col-12 mb-3 text-center">
           <button
             class="btn btn-primary"
             type="submit"

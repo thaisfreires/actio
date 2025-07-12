@@ -1,6 +1,8 @@
 .login-page {
   display: flex;
+  flex-direction: row;
   height: 100vh;
+  background-color: #ffffff;
 
   .form-container {
     flex: 1;
@@ -9,6 +11,7 @@
     flex-direction: column;
     justify-content: center;
     background-color: #ffffff;
+    
   }
 
   .branding-container {
@@ -67,7 +70,7 @@
   }
 
   .logo-img {
-    width: 700px !important;
+    width: 100% !important;
     height: auto !important;
     display: block;
     margin: 0 auto 1rem auto;
@@ -78,5 +81,17 @@
     margin-bottom: 2rem;
     text-align: center;
     color: #333;
+}
+@media (max-width: 768px) {
+  flex-direction: column;
+
+  .branding-container {
+    padding: 2rem;
+    order: 1;
+  }
+
+  .logo-img {
+    max-width: 300px;
+  }
 }
 }
