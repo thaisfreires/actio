@@ -1,28 +1,31 @@
-<section class="intro">
+<section class="portfolio-overview py-5">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-12 col-md-12">
-
-          <div class="card-body">
+      <div class="col-12 col-lg-10">
+        <div class="card shadow-2-strong">
+          <div class="card-header bg-light d-flex flex-column align-items-start">
+            <h5 class="fw-bold mb-1">My Portfolio</h5>
+            <small class="text-muted">Overview of your current holdings</small>
+          </div>
+          <div class="card-body p-0">
             <div class="table-responsive">
-              <table class="table table-hover table-borderless align-middle mb-0">
-                <thead class="table-light">
+              <table class="table table-hover mb-0 align-middle">
+                <thead class="bg-light">
                   <tr>
-                    <th scope="col" class="text-start">Stock</th>
-                    <th scope="col" class="text-end">Quantity</th>
-                    <th scope="col" class="text-end">Current Price</th>
-                    <th scope="col" class="text-end">Daily Variation</th>
+                    <th scope="col" class="text-start text-muted">Stock</th>
+                    <th scope="col" class="text-end text-muted">Shares</th>
+                    <th scope="col" class="text-end text-muted">Market Price</th>
+                    <th scope="col" class="text-end text-muted">Daily Change</th>
                   </tr>
                 </thead>
                 <tbody>
                   @for (item of stockItems; track $index) {
                   <tr>
-                    <th scope="row" class="text-start">{{ item.stockName }}</th>
+                    <td class="text-start fw-semibold">{{ item.stockName }}</td>
                     <td class="text-end">{{ item.quantity }}</td>
                     <td class="text-end">
-                      <span class="euro-container">
-                        <span class="euro-symbol">€</span>
-                        <span class="euro-value">{{ item.currentValue.toFixed(2).padStart(12, ' ') }}</span>
+                      <span class="text-primary fw-bold">
+                        €{{ item.currentValue.toFixed(2) }}
                       </span>
                     </td>
                     <td class="text-end">
@@ -42,7 +45,7 @@
               </table>
             </div>
           </div>
-
+        </div>
       </div>
     </div>
   </div>

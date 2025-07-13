@@ -1,17 +1,16 @@
-html,
-body,
-.intro {
-  height: 100%;
+:root {
+  --actio-purple: #6f42c1;
+  --actio-light-purple: #f3ebfa;
 }
 
-table td,
-table th {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+.card-header {
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.card {
-  border-radius: .5rem;
+.table-hover tbody tr:hover {
+  background-color: var(--actio-light-purple);
 }
 
+.text-primary {
+  color: var(--actio-purple) !important;
+}
