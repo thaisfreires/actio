@@ -4,7 +4,22 @@ import { RegisterComponent } from './pages/register/register.component';
 import { UnauthorizedPageComponent } from './pages/unauthorized-page/unauthorized-page.component';
 
 export const routes: Routes = [
-    {path: 'login', pathMatch: 'full', component: LoginComponent},
-    { path: 'register', component: RegisterComponent },
-    { path: 'unauthorized', component: UnauthorizedPageComponent }
+    {
+      path: '',
+      redirectTo: '/login',
+      pathMatch: 'full'
+    },
+    {
+      path: 'login',
+      pathMatch: 'full',
+      component: LoginComponent
+    },
+    {
+      path: 'register',
+      component: RegisterComponent
+    },
+    {
+      path: 'unauthorized',
+      component: UnauthorizedPageComponent
+    }
 ];
