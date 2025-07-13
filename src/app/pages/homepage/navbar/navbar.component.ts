@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 
-
 @Component({
   selector: 'app-navbar',
   imports: [],
@@ -15,6 +14,7 @@ export class NavbarComponent {
   onMenuClick() {
     this.toggleSidebar.emit();
   }
+
 
  
 

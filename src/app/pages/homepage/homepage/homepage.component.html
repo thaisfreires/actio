@@ -3,3 +3,78 @@
 <app-sidebar [isOpen]="sidebarOpen" (close)="closeSidebar()"></app-sidebar>
 
 
+  <div class="p-4">
+    <div class="bg-white rounded-2xl shadow p-6">
+      <h2 class="fw-bold text-center mb-5">My Portfolio</h2>
+  
+      <!-- Flex container horizontal -->
+      <div class="row gx-l-5">
+        <div *ngFor="let stock of stockItems"
+            class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+            <div class="card h-100 border border-3"
+             [ngClass]="{
+               'border-success': stock.quote.changePercent.includes('+') || !stock.quote.changePercent.includes('-'),
+               'border-danger': stock.quote.changePercent.includes('-')
+             }">
+             <div class="card-body"
+             [ngClass]="{
+               'bg-light-green': stock.quote.changePercent.includes('+') || !stock.quote.changePercent.includes('-'),
+               'bg-light-red': stock.quote.changePercent.includes('-')
+             }">
+             <!--<div class="card">-->
+  
+          <div class="flex justify-between items-center">
+            <h3 class="text-lg text-center font-semibold">{{ stock.stockName }}</h3>
+            <span class="text-sm text-gray-500">{{ stock.quantity }} shares</span>
+          </div>
+  
+          <div class="text-xl font-bold mt-1">
+            {{ stock.quote.price | number:'1.2-2' }}€ <span class="text-sm text-gray-400">/ share</span>
+          </div>
+  
+          <div class="text-sm text-gray-700">
+            Total: <b>{{ getTotalValue(stock) | number:'1.2-2' }} €</b>
+          </div>
+  
+          <div class="fw-semibold"
+          [ngClass]="{
+            'text-success': stock.quote.changePercent.includes('+') || !stock.quote.changePercent.includes('-'),
+            'text-danger': stock.quote.changePercent.includes('-')
+          }">
+            {{ stock.quote.changePercent }}
+          </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+ 
+
+
+  <div class="p-4">
+    <div class="card shadow rounded p-3" style="max-width: 600px; height: 350px; overflow: hidden;">
+    <ngx-charts-line-chart
+      [view]="[550, 320]"
+      [results]="portfolioHistory"
+      [scheme]="colorScheme"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="false"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxisLabel]="'Date'"
+      [yAxisLabel]="'Total Value (€)'"
+      [autoScale]="true"
+      [animations]="true"
+      [gradient]="false"
+      [tooltipDisabled]="false">
+    </ngx-charts-line-chart>
+  </div>
+  </div>
+  
+
+
+  
