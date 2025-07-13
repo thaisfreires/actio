@@ -37,13 +37,14 @@ export class LoginComponent {
         this.redirect(); 
       },
       error: (err) => {
+        this.form.reset();
         this.message = 'Email or password is incorrect.';
         this.isError = true;
         console.error(err);
-        this.form.reset();
       },
     });
   }
+  
   redirect() {
     this.router.navigate(['/dashboard']);
   }
