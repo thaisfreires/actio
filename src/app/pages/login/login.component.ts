@@ -1,40 +1,55 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { LoginRequest } from '../../models/user.model';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule,ReactiveFormsModule,MdbFormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  email = '';
-  password = '';
+  form: FormGroup;
   message = '';
+  isError = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private fb:FormBuilder, private router: Router) {
+    this.form = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(9)]],
+    });
+  }
 
-  onLogin(): void {
-    const request: LoginRequest = {
-      email: this.email,
-      password: this.password,
-    };
+  onLogin(valid: boolean) {
+    console.log("Form valid:" , valid);
+    if(!valid) return;
+    
 
-    this.authService.login(request).subscribe({
+    const userLogin = this.form.value;
+
+    this.authService.login(userLogin).subscribe({
       next: (response) => {
-        const token = response.headers.get('Authorization');
-        if (token) {
-          localStorage.setItem('token', token);
-          this.message = 'Login bem-sucedido!';
-        } else {
-          this.message = 'Token não encontrado no cabeçalho.';
-        }
+        this.isError = false;
+        console.log(response);
+        this.redirect(); 
       },
       error: (err) => {
-        this.message = 'Falha no login: ' + (err.error || 'Erro desconhecido');
+        this.form.reset();
+        this.message = 'Email or password is incorrect.';
+        this.isError = true;
+        console.error(err);
       },
     });
   }
+  
+  redirect() {
+    this.router.navigate(['/dashboard']);
+  }
+  get f() {
+    return this.form.controls;
+  }
+  
 }
