@@ -35,9 +35,9 @@ export class RegisterComponent {
     this.authService.register(userRequest).subscribe({
       next: (res) => {
         this.message = 'User registered successfully!';
-        this.form.reset(); 
+        this.form.reset();
         this.isError = false;
-        console.log(res); 
+        console.log(res);
       },
       error: (err) => {
         this.message = 'Fail to register: ' + (err.error?.message || 'Unknown error');
