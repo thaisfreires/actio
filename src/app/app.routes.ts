@@ -6,7 +6,7 @@ import { UnauthorizedPageComponent } from './pages/unauthorized-page/unauthorize
 export const routes: Routes = [
     {
       path: '',
-      redirectTo: '/login',
+      redirectTo: '/register',
       pathMatch: 'full'
     },
     {
