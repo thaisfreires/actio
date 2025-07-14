@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { StockItem } from '../../../models/stock-item.model';
+import { UserStockItem } from '../../../models/user-stock-item.model';
 import { AccountStockHistory } from '../../../models/account-stock-history.model';
 import { CommonModule } from '@angular/common';
 import { NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
+import { StockItem } from '../../../models/stock-item.model';
 
 
 
@@ -28,6 +29,8 @@ export class HomepageComponent {
   }
 
   stockItems: StockItem[] = [];
+
+  userStockItems: UserStockItem[] = [];
   
   accountStockHistory: AccountStockHistory[] = [];
 
@@ -41,7 +44,7 @@ export class HomepageComponent {
 
   loadMockData(): void {
     // MOCK STOCKS
-    this.stockItems = [
+    this.userStockItems = [
       {
         id: 1,
         stockName: 'NOS.LS',
@@ -59,8 +62,64 @@ export class HomepageComponent {
           price: 0.21,
           changePercent: '1.45%'
         }
-      }
+      },
+      {
+        id: 2,
+        stockName: 'BCP.LS',
+        quantity: 100,
+        quote: {
+          price: 0.21,
+          changePercent: '1.45%'
+        }
+      },
+      {
+        id: 2,
+        stockName: 'BCP.LS',
+        quantity: 100,
+        quote: {
+          price: 0.21,
+          changePercent: '1.45%'
+        }
+      },
+      
+     
     ];
+
+    this.stockItems = [
+      {
+        id: 2,
+        stockName: 'BCP.LS',
+        quote: {
+          price: 0.21,
+          changePercent: '1.45%'
+        }
+      },
+      {
+        id: 1,
+        stockName: 'NOS.LS',
+        quote: {
+          price: 3.60,
+          changePercent: '-0.89%'
+        }
+      },
+      {
+        id: 3,
+        stockName: 'EDP.LS',
+        quote: {
+          price: 6.20,
+          changePercent: '-0.50%'
+        }
+      },
+      {
+        id: 4,
+        stockName: 'XXX.LS',
+        quote: {
+          price: 5.30,
+          changePercent: '2.39%'
+        }
+      },
+
+    ]
 
     // MOCK HISTÓRICO DA CARTEIRA
     this.accountStockHistory = [
@@ -82,7 +141,7 @@ export class HomepageComponent {
     ];
   }
 
-  getTotalValue(stock: StockItem): number {
+  getTotalValue(stock: UserStockItem): number {
     return stock.quantity * stock.quote.price;
   }
 

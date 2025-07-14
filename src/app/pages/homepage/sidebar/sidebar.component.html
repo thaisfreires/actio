@@ -8,8 +8,11 @@
     *ngIf="isOpen"
     (click)="onCloseClick()">
       <div class="sidebar-content d-flex flex-column h-100" (click)="$event.stopPropagation()">
+        <div class="text-center fw-bold">
+          User Panel
+        </div>
         <div class="list-group list-group-flush mx-3 mt-4">
-          <a href="#"
+          <a href="/homepage"
             class="list-group-item list-group-item-action py-2 mb-3 border-0 ripple custom-purple-hover"
             aria-current="true">
             <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
