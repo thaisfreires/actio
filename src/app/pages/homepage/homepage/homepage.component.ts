@@ -7,14 +7,16 @@ import { CommonModule } from '@angular/common';
 import { NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
 import { StockItem } from '../../../models/stock-item.model';
 import { WatchlistComponent } from '../../../components/watchlist/watchlist.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Transaction } from '../../../models/transaction.model';
+import { TransactionType } from '../../../models/enums/TransactionType.enum';
+import { RouterModule } from '@angular/router';
 
 
 
 
 @Component({
   selector: 'app-homepage',
-  imports: [NavbarComponent,CommonModule, NgxChartsModule, WatchlistComponent],
+  imports: [NavbarComponent,CommonModule, NgxChartsModule, WatchlistComponent, RouterModule],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss'
 })
@@ -28,11 +30,19 @@ export class HomepageComponent {
   
   accountStockHistory: AccountStockHistory[] = [];
 
+  transactions: Transaction[] = [];
+  
+
+  totalInvested = 0;
+  totalBalance = 0;
+  percentageChange = 0;
+
   // dados transformados para o gráfico
   portfolioHistory: any[] = [];
 
   ngOnInit(): void {
     this.loadMockData();
+    this.calculateInvestments();
   }
 
 
@@ -115,6 +125,26 @@ export class HomepageComponent {
 
     ]
 
+    this.transactions = [
+      {
+        id_transaction: '1',
+        id_account: 'acc1',
+        id_stock: 'NOS.LS',
+        negotiation_price: 3.2,
+        quantity: 50,
+        transaction_type: TransactionType.Buy,
+        date_time: new Date()
+      },
+      {
+        id_transaction: '2',
+        id_account: 'acc1',
+        id_stock: 'BCP.LS',
+        negotiation_price: 0.18,
+        quantity: 100,
+        transaction_type: TransactionType.Buy,
+        date_time: new Date()
+      }
+    ];
 
 
 
@@ -152,4 +182,16 @@ export class HomepageComponent {
   };
   
 
+  calculateInvestments(): void {
+    this.totalInvested = this.transactions
+      .filter(t => t.transaction_type === TransactionType.Buy)
+      .reduce((sum, t) => sum + t.negotiation_price * t.quantity, 0);
+
+    this.totalBalance = this.userStockItems
+      .reduce((sum, s) => sum + s.quantity * s.quote.price, 0);
+
+    this.percentageChange = this.totalInvested === 0
+      ? 0
+      : ((this.totalBalance - this.totalInvested) / this.totalInvested) * 100;
+  }
 }
