@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { WalletService } from './../../services/wallet.service';
+import { Component, OnInit } from '@angular/core';
 import { DefaultTableComponent } from "../../components/default-table/default-table.component";
 import { StockItem } from '../../models/stock-item';
 
@@ -8,11 +9,27 @@ import { StockItem } from '../../models/stock-item';
   templateUrl: './client-wallet.component.html',
   styleUrl: './client-wallet.component.scss'
 })
-export class ClientWalletComponent {
+export class ClientWalletComponent implements OnInit {
 
-  title: string = "Table Title";
-  subtitle: string = "The Long Table Subtitle here"
+  stockItems: StockItem[] = []
 
+
+  constructor(private walletService: WalletService){}
+  ngOnInit(): void {
+
+    this.walletService.getWallet().subscribe({
+        next: (response: StockItem[]) => {
+          console.log(response);
+          this.stockItems = response;
+        },
+        error: (err) => {
+          console.error('Unable to retrieve wallet information from the server', err);
+        }
+    });
+  }
+
+  title: string = "My Wallet";
+  subtitle: string = "An Overview of Your Latest Market Positions"
 
   tableColumns = [
     { label: 'Stock', key: 'stockName', align: 'start' as const },
@@ -33,37 +50,5 @@ export class ClientWalletComponent {
     }
   ];
 
-  stockItems: StockItem[] = [
-    {
-      stockName: "GALP.LS",
-      quantity: 120,
-      currentValue: 13.4565,
-      dailyVariation: "+1.52%"
-    },
-    {
-      stockName: "EDP.LS",
-      quantity: 80,
-      currentValue: 4.82,
-      dailyVariation: "-0.34%"
-    },
-    {
-      stockName: "SAN.PA",
-      quantity: 45,
-      currentValue: 88.67,
-      dailyVariation: "+0.78%"
-    },
-    {
-      stockName: "OR.PA",
-      quantity: 25,
-      currentValue: 430.10,
-      dailyVariation: "+1.05%"
-    },
-    {
-      stockName: "BNP.PA",
-      quantity: 60,
-      currentValue: 56.20,
-      dailyVariation: "-0.12%"
-    }
-  ];
 
 }
