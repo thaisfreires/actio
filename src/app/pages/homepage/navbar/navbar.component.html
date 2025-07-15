@@ -2,7 +2,7 @@
     <div class="container-fluid">
 
         <div class="flex items-center space-x-2">
-            <button class="btn" style="background-color: #7e5bef; color: white;" (click)="onMenuClick()">☰ Menu</button>
+            <button class="btn" style="background-color: #7e5bef; color: white;" (click)="toggleSidebar()">☰ Menu</button>
             <!--<span class="navbar-brand mb-0 h1">My App</span> -->
             
             <span class="fw-semibold fs-5 ms-4">Hello User</span>
@@ -30,3 +30,5 @@
     </div>
 </nav>
   
+
+<app-sidebar [isOpen]="sidebarOpen" (close)="closeSidebar()"></app-sidebar>
