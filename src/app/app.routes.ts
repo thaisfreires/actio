@@ -4,6 +4,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { UnauthorizedPageComponent } from './pages/unauthorized-page/unauthorized-page.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { roleGuard } from './auth/role.guard';
+import { ClientWalletComponent } from './pages/client-wallet/client-wallet.component';
 
 export const routes: Routes = [
     {
@@ -29,5 +30,11 @@ export const routes: Routes = [
       component: ProfileComponent,
       canActivate: [roleGuard],
       data: { roles: ['CLIENT', 'ADMIN'] }
+    },
+    {
+      path: 'wallet',
+      component: ClientWalletComponent,
+      canActivate: [roleGuard],
+      data: { roles: ['CLIENT'] }
     },
 ];
