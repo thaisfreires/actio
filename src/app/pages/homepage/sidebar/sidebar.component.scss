@@ -1,0 +1,40 @@
+body {
+    background-color: #fbfbfb;
+  }
+  @media (min-width: 991.98px) {
+    main {
+      padding-left: 240px;
+    }
+  }
+  
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    overflow-x: hidden;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1050;
+    transition: 0.3s ease;
+  }
+  
+  /* Sidebar inner content */
+  .sidebar-content {
+    background: white;
+    width: 250px;
+    height: 100%;
+    padding: 1rem;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+  }
+  
+  /* When sidebar is open */
+  .sidebar-open {
+    width: 100%;
+  }
+
+  .custom-purple-hover:hover {
+    background-color: #c8baf8;
+    color: black;
+  }
+  
