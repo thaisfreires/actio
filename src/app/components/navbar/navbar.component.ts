@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 
-
 @Component({
   selector: 'app-navbar',
   imports: [SidebarComponent],
@@ -9,7 +8,6 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-
 
   sidebarOpen = false;
 
@@ -19,6 +17,8 @@ export class NavbarComponent {
 
   closeSidebar() {
     this.sidebarOpen = false;
-  
   }
+
+ 
+
 }

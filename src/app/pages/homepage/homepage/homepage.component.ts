@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { SidebarComponent } from '../sidebar/sidebar.component';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { UserStockItem } from '../../../models/user-stock-item.model';
 import { AccountStockHistory } from '../../../models/account-stock-history.model';
 import { CommonModule } from '@angular/common';
@@ -10,13 +8,15 @@ import { WatchlistComponent } from '../../../components/watchlist/watchlist.comp
 import { Transaction } from '../../../models/transaction.model';
 import { TransactionType } from '../../../models/enums/TransactionType.enum';
 import { RouterModule } from '@angular/router';
+import { NavbarComponent } from '../../../components/navbar/navbar.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
 
 
 
 
 @Component({
   selector: 'app-homepage',
-  imports: [NavbarComponent,CommonModule, NgxChartsModule, WatchlistComponent, RouterModule],
+  imports: [NavbarComponent,CommonModule, NgxChartsModule, WatchlistComponent, RouterModule, FooterComponent],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss'
 })
@@ -116,10 +116,26 @@ export class HomepageComponent {
       },
       {
         id: 4,
-        stockName: 'XXX.LS',
+        stockName: 'AAA.LS',
         quote: {
-          price: 5.30,
-          changePercent: '2.39%'
+          price: 4.30,
+          changePercent: '1.51%'
+        }
+      },
+      {
+        id: 5,
+        stockName: 'BBB.LS',
+        quote: {
+          price: 15.30,
+          changePercent: '-3.32%'
+        }
+      },
+      {
+        id: 6,
+        stockName: 'CCC.LS',
+        quote: {
+          price: 7.30,
+          changePercent: '-0.27%'
         }
       },
 
