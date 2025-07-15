@@ -1,0 +1,56 @@
+<div class="card custom-purple-shadow rounded p-3" style="max-width: 600px; height: 400px">
+  <!-- Botão de adicionar no canto superior direito -->
+  <div class="position-absolute top-0 end-0 m-3">
+    <div class="dropdown">
+      <button class="btn btn-sm text-white"
+              type="button"
+              style="background-color: #7e5bef;"
+              (click)="toggleDropdown()">
+        <i class="fas fa-plus"></i>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end mt-2" *ngIf="dropdownOpen">
+        <li *ngFor="let stock of availableStocks">
+          <button type="button" class="dropdown-item" (click)="addToWatchlist(stock)">
+            {{ stock.stockName }} - {{ stock.quote.price | number:'1.2-2' }} €
+            <span [ngClass]="{
+              'text-success': stock.quote.changePercent.includes('+') || !stock.quote.changePercent.includes('-'),
+              'text-danger': stock.quote.changePercent.includes('-')
+            }">
+              ({{ stock.quote.changePercent }})
+            </span>
+          </button>
+        </li>
+        <li *ngIf="availableStocks.length === 0" class="dropdown-item disabled text-muted">
+          No more stocks available
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Título -->
+  <h2 class="fw-bold text-center mb-4">Watchlist</h2>
+
+  <!-- Lista de Stocks -->
+  <ul class="list-group">
+    <li *ngFor="let stock of watchlist"
+        class="list-group-item d-flex justify-content-between align-items-center">
+      
+      <div>
+        <div class="fw-semibold">{{ stock.stockName }}</div>
+        <small>
+          {{ stock.quote.price | number:'1.2-2' }} € / share • 
+          <span [ngClass]="{
+            'text-success': stock.quote.changePercent.includes('+') || !stock.quote.changePercent.includes('-'),
+            'text-danger': stock.quote.changePercent.includes('-')
+          }">
+            {{ stock.quote.changePercent }}
+          </span>
+        </small>
+      </div>
+
+      <button class="btn btn-sm btn-outline-danger"  (click)="removeFromWatchlist(stock)">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+    </li>
+  </ul>
+</div>

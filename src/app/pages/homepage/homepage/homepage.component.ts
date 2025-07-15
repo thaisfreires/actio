@@ -6,31 +6,25 @@ import { AccountStockHistory } from '../../../models/account-stock-history.model
 import { CommonModule } from '@angular/common';
 import { NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
 import { StockItem } from '../../../models/stock-item.model';
+import { WatchlistComponent } from '../../../components/watchlist/watchlist.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
 
 @Component({
   selector: 'app-homepage',
-  imports: [SidebarComponent, NavbarComponent,CommonModule, NgxChartsModule],
+  imports: [NavbarComponent,CommonModule, NgxChartsModule, WatchlistComponent],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss'
 })
 export class HomepageComponent {
 
-  sidebarOpen = false;
-
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen;
-  }
-
-  closeSidebar() {
-    this.sidebarOpen = false;
-  }
 
   stockItems: StockItem[] = [];
 
   userStockItems: UserStockItem[] = [];
+
   
   accountStockHistory: AccountStockHistory[] = [];
 
@@ -120,6 +114,11 @@ export class HomepageComponent {
       },
 
     ]
+
+
+
+
+
 
     // MOCK HISTÓRICO DA CARTEIRA
     this.accountStockHistory = [
