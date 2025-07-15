@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WalletTableComponent } from './wallet-table.component';
+import { DefaultTableComponent } from './default-table.component';
 
-describe('WalletTableComponent', () => {
-  let component: WalletTableComponent;
-  let fixture: ComponentFixture<WalletTableComponent>;
+describe('DefaultTableComponent', () => {
+  let component: DefaultTableComponent;
+  let fixture: ComponentFixture<DefaultTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WalletTableComponent]
+      imports: [DefaultTableComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(WalletTableComponent);
+    fixture = TestBed.createComponent(DefaultTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
