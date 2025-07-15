@@ -29,4 +29,17 @@
     <input type="text" class="form-control" [value]="user.date_of_birth | date:'dd/MM/yyyy'" disabled />
   </div>
 
+  <button class="encerrar-conta-btn" (click)="openPopup()" [disabled]="accountClosed"> Close Account </button>
+  <app-account-closure-popup [show]="showPopup"></app-account-closure-popup>
+
+  <app-account-closure-popup
+  [show]="showPopup"
+  (closureConfirmed)="onClosureConfirmed()"
+  (closed)="onPopupClosed()"
+></app-account-closure-popup>
+
+  <div *ngIf="successMessage" class="alert alert-success success-alert" role="alert">
+    {{ successMessage }}
+  </div>
+
 

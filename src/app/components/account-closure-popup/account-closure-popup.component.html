@@ -1,0 +1,24 @@
+<div class="popup-backdrop" *ngIf="show">
+    <div class="popup-modal">
+      <h2>Account Closure</h2>
+  
+      <ng-container *ngIf="closureCriteriaMet; else notAllowed">
+        <p>Are you sure you want to close your account?</p>
+        <div class="buttons">
+          <button (click)="confirmClosure()">Confirm</button>
+          <button (click)="close()">Cancel</button>
+        </div>
+      </ng-container>
+  
+      <ng-template #notAllowed>
+        <p><strong>Account closure is not possible at this moment.</strong></p>
+        <ul>
+          <li *ngFor="let reason of pendingReasons">{{ reason }}</li>
+        </ul>
+        <div class="buttons">
+          <button (click)="close()">Close</button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  
