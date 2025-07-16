@@ -13,8 +13,9 @@
               <table class="table table-hover mb-0 align-middle">
                 <thead class="bg-light">
                   <tr>
-                    <th *ngFor="let column of tableColumns" [ngClass]="'text-' + (column.align || 'start')"
-                      class="text-muted">
+                    <th *ngFor="let column of tableColumns"
+                        [ngClass]="'text-' + (column.align || 'start')"
+                        class="text-muted">
                       {{ column.label }}
                     </th>
                   </tr>
@@ -22,8 +23,23 @@
 
                 <tbody>
                   <tr *ngFor="let row of tableData">
-                    <td *ngFor="let column of tableColumns" [ngClass]="'text-' + (column.align || 'start')"
-                      [innerHTML]="column.format ? column.format(row[column.key], row) : row[column.key]">
+                    <td *ngFor="let column of tableColumns"
+                        [ngClass]="'text-' + (column.align || 'start')">
+
+                      <!-- Com chave e formatador -->
+                      <ng-container *ngIf="column.key; else customColumn">
+                        <span [innerHTML]="column.format ? column.format(row[column.key], row) : row[column.key]"></span>
+                      </ng-container>
+
+                      <!-- Coluna personalizada (ex: botões) -->
+                      <ng-template #customColumn>
+                        <ng-container *ngIf="column.customRender">
+                          <ng-container [ngTemplateOutlet]="column.customRender(row)"
+                                        [ngTemplateOutletContext]="{ $implicit: row }">
+                          </ng-container>
+                        </ng-container>
+                      </ng-template>
+
                     </td>
                   </tr>
                 </tbody>
