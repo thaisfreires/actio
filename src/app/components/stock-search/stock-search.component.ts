@@ -26,32 +26,30 @@ export class StockSearchComponent {
   constructor(private stockService: StockService) {}
 
   onSearch(): void {
-    const term = this.searchTerm.trim().toLowerCase();
-    this.errorMessage = '';
-    this.successMessage = '';
-    this.selectedStock = null;
+  const term = this.searchTerm.trim().toLowerCase();
+  this.errorMessage = '';
+  this.successMessage = '';
+  this.selectedStock = null;
 
-    if (!term) {
-      return;
-    }
-
-    this.stockService.getMarketStocks().subscribe({
-      next: stocks => {
-        const found = stocks.find(s =>
-          s.stockName.toLowerCase().includes(term)
-        );
-        if (found) {
-          this.selectedStock = found;
-        } else {
-          this.errorMessage = 'No stock found with that name.';
-        }
-      },
-      error: err => {
-        console.error(err);
-        this.errorMessage = 'An error occurred while searching.';
-      }
-    });
+  if (!term) {
+    return;
   }
+
+  this.stockService.getStockByTicker(term).subscribe({
+    next: stock => {
+      if (stock) {
+        console.log(stock)
+        this.selectedStock = stock;
+      } else {
+        this.errorMessage = `No stock found for ticker "${term}".`;
+      }
+    },
+    error: err => {
+      console.error(err);
+      this.errorMessage = `An error occurred while searching for "${term}".`;
+    }
+  });
+}
 
   selectStock(stock: MarketStock): void {
     this.showPurchasePopup = true;
