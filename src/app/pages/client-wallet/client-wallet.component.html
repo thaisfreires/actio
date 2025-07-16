@@ -1,5 +1,9 @@
 <app-navbar>\</app-navbar>
 <app-stock-search (purchaseCompleted)="refreshWallet()" />
+
+<div *ngIf="successMessage" class="alert alert-success text-center mt-3">
+  {{ successMessage }}
+</div>
 <ng-template #buyButton let-item>
   <button
     class="btn btn-sm action-btn buy-btn"
@@ -40,6 +44,6 @@
   (onConfirm)="handleConfirmTransaction($event)"
   (onCancel)="showPurchasePopup = false"
   (errorMessage)="handleTransactionError($event)"
-  (onSuccess)="refreshWallet()"
+  (onSuccess)="handleTransactionSuccess()"
 />
 <app-footer></app-footer>

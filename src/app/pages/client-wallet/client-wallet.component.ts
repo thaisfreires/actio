@@ -101,6 +101,14 @@ export class ClientWalletComponent implements OnInit {
     }
   ];
 
+  handleTransactionSuccess(): void {
+    this.successMessage = 'Transaction completed successfully!';
+    this.refreshWallet();
+
+    setTimeout(() => {
+      this.successMessage = '';
+    }, 5000);
+  }
 
   refreshWallet(): void {
     this.walletService.getWallet().subscribe({
