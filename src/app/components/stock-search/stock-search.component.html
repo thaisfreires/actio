@@ -1,93 +1,65 @@
-<div class="stock-search-container">
+<section class="stock-search-container">
+
+
   <!-- Search Bar -->
-  <div class="search-section mb-3">
+  <form class="search-section mb-3" (ngSubmit)="onSearch()">
     <input
+      name="searchTerm"
       type="text"
       [(ngModel)]="searchTerm"
       placeholder="Search stock name..."
       class="form-control"
     />
-    <button class="btn btn-primary mt-2" (click)="onSearch()">Search</button>
-  </div>
+    <button
+      type="submit"
+      class="btn btn-primary mt-2"
+    >
+      Search
+    </button>
+  </form>
 
-  <!-- Sort by -->
-  <div class="sort-filters">
-    <div class="form-group">
-      <label for="sortBy">Sort by:</label>
-      <select id="sortBy" [(ngModel)]="sortBy" (change)="onSearch()">
-        <option value="delta">Change</option>
-        <option value="price">Price</option>
-      </select>
+  <!-- Card -->
+  <div *ngIf="selectedStock" class="stock-card mx-auto">
+    <div class="stock-card-header">
+      <h5>{{ selectedStock.stockName }}</h5>
     </div>
 
-    <div class="form-group">
-      <label for="sortDirection">Order:</label>
-      <select id="sortDirection" [(ngModel)]="sortDirection" (change)="onSearch()">
-        <option value="asc">Ascending ↑</option>
-        <option value="desc">Descending ↓</option>
-      </select>
+    <div class="stock-card-body">
+      <div class="info-item">
+        <span class="info-label">Price</span>
+        <span class="info-value">€{{ selectedStock.price.toFixed(2) }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Change</span>
+        <span
+          class="info-value"
+          [ngClass]="selectedStock.delta >= 0 ? 'text-positive' : 'text-negative'"
+        >
+          {{ (selectedStock.delta >= 0 ? '+' : '') + selectedStock.delta }}%
+        </span>
+      </div>
+      <div class="info-action">
+        <button
+          class="btn btn-success btn-sm"
+          (click)="selectStock(selectedStock)"
+        >
+          BUY
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- Stock Table -->
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Stock</th>
-        <th>Price</th>
-        <th>Change</th>
-        <th></th> <!-- Botão BUY -->
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let s of filteredStocks">
-        <td>{{ s.stockName }}</td>
-        <td>€{{ s.price }}</td>
-        <td [ngStyle]="{ color: s.delta >= 0 ? 'green' : 'red' }">
-          {{ s.delta >= 0 ? '+' : '' }}{{ s.delta }}%
-        </td>
-        <td>
-          <button class="btn btn-sm btn-success" (click)="selectStock(s)">BUY</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Alertas -->
-
+  <!-- Error / No-result -->
   <div *ngIf="errorMessage" class="alert alert-warning text-center mt-3">
     {{ errorMessage }}
   </div>
 
-  <!-- Paginação -->
-  <nav *ngIf="totalPages > 1" class="pagination-container mt-4">
-    <button
-      class="pagination-btn"
-      [disabled]="currentPage === 1"
-      (click)="goToPreviousPage()"
-    >
-      ‹ Previous
-    </button>
-
-    <span class="pagination-info">Page {{ currentPage }} of {{ totalPages }}</span>
-
-    <button
-      class="pagination-btn"
-      [disabled]="currentPage === totalPages"
-      (click)="goToNextPage()"
-    >
-      Next ›
-    </button>
-  </nav>
-
-  <!-- Alert Success purchase -->
+  <!-- Success Message -->
   <div *ngIf="successMessage" class="alert alert-success text-center mt-3">
     {{ successMessage }}
   </div>
-  
 
-  <!-- Purchase Popup (reutilizável) -->
+  <!-- Purchase Popup -->
   <app-stock-purchase-popup
     *ngIf="showPurchasePopup"
     [stockName]="selectedStock?.stockName ?? ''"
@@ -95,5 +67,6 @@
     [availableBalance]="clientBalance"
     (onConfirm)="handleConfirmPurchase($event)"
     (onCancel)="showPurchasePopup = false"
-  />
-</div>
+  >
+  </app-stock-purchase-popup>
+</section>
