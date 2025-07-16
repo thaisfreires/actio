@@ -41,10 +41,11 @@ export const routes: Routes = [
 
       path: 'stock-test',
       loadComponent: () => import('./components/stock-search/stock-search.component').then(m => m.StockSearchComponent)
-    }
+    },
+    {
       path: 'wallet',
       component: ClientWalletComponent,
       canActivate: [roleGuard],
       data: { roles: ['CLIENT'] }
-    },
+    }
 ];
