@@ -10,14 +10,13 @@
 
           <div class="card-body p-0">
             <div class="table-responsive">
-              <table class="table table-hover mb-0 align-middle">
-                <thead class="bg-light">
+              <table class="table table-striped table-hover mb-0 align-middle">
+                <thead>
                   <tr>
                     <th *ngFor="let column of tableColumns"
-                        [ngClass]="'text-' + (column.align || 'start')"
-                        class="text-muted">
-                      {{ column.label }}
-                    </th>
+                    [ngClass]="'text-' + (column.align || 'start') + ' text-white'">
+                    {{ column.label }}
+                </th>
                   </tr>
                 </thead>
 
@@ -26,16 +25,21 @@
                     <td *ngFor="let column of tableColumns"
                         [ngClass]="'text-' + (column.align || 'start')">
 
-                      <!-- Com chave e formatador -->
+                      <!-- Se houver key, formatar ou exibir valor -->
                       <ng-container *ngIf="column.key; else customColumn">
-                        <span [innerHTML]="column.format ? column.format(row[column.key], row) : row[column.key]"></span>
+                        <span [innerHTML]="
+                          column.format
+                            ? column.format(row[column.key], row)
+                            : row[column.key]
+                        "></span>
                       </ng-container>
 
-                      <!-- Coluna personalizada (ex: botões) -->
+                      <!-- Coluna customizável (ex: botão BUY) -->
                       <ng-template #customColumn>
                         <ng-container *ngIf="column.customRender">
-                          <ng-container [ngTemplateOutlet]="column.customRender(row)"
-                                        [ngTemplateOutletContext]="{ $implicit: row }">
+                          <ng-container
+                            [ngTemplateOutlet]="column.customRender(row)"
+                            [ngTemplateOutletContext]="{ $implicit: row }">
                           </ng-container>
                         </ng-container>
                       </ng-template>
