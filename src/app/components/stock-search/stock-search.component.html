@@ -2,21 +2,21 @@
 
 
   <!-- Search Bar -->
-  <form class="search-section mb-3" (ngSubmit)="onSearch()">
-    <input
-      name="searchTerm"
-      type="text"
-      [(ngModel)]="searchTerm"
-      placeholder="Search stock name..."
-      class="form-control"
-    />
-    <button
-      type="submit"
-      class="btn btn-primary mt-2"
-    >
-      Search
-    </button>
-  </form>
+    <form class="search-section mb-3" (ngSubmit)="onSearch()">
+      <input
+        name="searchTerm"
+        type="text"
+        [(ngModel)]="searchTerm"
+        placeholder="Search stock name..."
+        class="form-control"
+      />
+      <button
+        type="submit"
+        class="btn btn-primary mt-2"
+      >
+        Search
+      </button>
+    </form>
 
   <!-- Card -->
   <div *ngIf="selectedStock" class="stock-card mx-auto">
@@ -33,9 +33,9 @@
         <span class="info-label">Change</span>
         <span
           class="info-value"
-          [ngClass]="selectedStock.delta >= 0 ? 'text-positive' : 'text-negative'"
+          [ngClass]="selectedStock.delta.startsWith('-') ? 'text-negative' : 'text-positive'"
         >
-          {{ (selectedStock.delta >= 0 ? '+' : '') + selectedStock.delta }}%
+          {{ selectedStock.delta }}
         </span>
       </div>
       <div class="info-action">
