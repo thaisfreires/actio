@@ -1,18 +1,27 @@
-import { CommonModule } from '@angular/common';
-import { StockItem } from './../../models/stock-item';
 import { Component, Input } from '@angular/core';
+import { StockItem } from '../../models/stock-item';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-wallet-table',
+  selector: 'app-default-table',
   imports: [CommonModule],
-  templateUrl: './wallet-table.component.html',
-  styleUrl: './wallet-table.component.scss'
+  templateUrl: './default-table.component.html',
+  styleUrl: './default-table.component.scss'
 })
-export class WalletTableComponent {
+export class DefaultTableComponent {
 
-  // TODO: Rename stockList to stockItems and exlude list of fake information
-  @Input() stockList: StockItem[] = [];
 
+  @Input() tableTitle: String = "";
+  @Input() tableSubTitle: String = "";
+  @Input() tableData: Array<Record<string, any>> = [];
+  @Input() tableColumns: Array<{
+    key: string;
+    label: string;
+    align?: 'start' | 'center' | 'end';
+    format?: (value: any, row?: any) => string;
+  }> = [];
+
+  /*
    stockItems: StockItem[] = [
     {
       stockName: "GALP.LS",
@@ -45,6 +54,7 @@ export class WalletTableComponent {
       dailyVariation: "-0.12%"
     }
   ];
+  */
 
   constructor() {}
 
