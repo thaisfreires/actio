@@ -27,4 +27,31 @@ export class AuthService {
   register(request: UserRegistrationRequest): Observable<any> {
     return this.http.post('http://localhost:8080/users/save', request);
   }
+
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  getUserRoles(): string[] {
+    const token = this.getToken();
+    if (!token) return [];
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.roles || [];
+    } catch (e) {
+      console.error('Erro ao decodificar o token:', e);
+      return [];
+    }
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
+  hasRole(role: string): boolean {
+    return this.getUserRoles().includes(role);
+  }
+
 }
