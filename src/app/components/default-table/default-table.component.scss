@@ -42,3 +42,34 @@
 .table-responsive .table-striped thead th.text-muted {
   color: #fff;
 }
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pagination-btn {
+  background-color: #6a11cb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #5510a3;
+}
+
+.pagination-info {
+  font-weight: 500;
+  color: #333;
+}

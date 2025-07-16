@@ -3,53 +3,70 @@
     <div class="row justify-content-center">
       <div class="col-12 col-lg-10">
         <div class="card shadow-2-strong">
-          <div class="card-header bg-light d-flex flex-column align-items-start">
-            <h5 class="fw-bold mb-1">{{ tableTitle }}</h5>
-            <small class="text-muted">{{ tableSubTitle }}</small>
-          </div>
 
+          <!-- TABLE -->
           <div class="card-body p-0">
             <div class="table-responsive">
               <table class="table table-striped table-hover mb-0 align-middle">
                 <thead>
                   <tr>
-                    <th *ngFor="let column of tableColumns"
-                    [ngClass]="'text-' + (column.align || 'start') + ' text-white'">
-                    {{ column.label }}
-                </th>
+                    <th *ngFor="let col of tableColumns"
+                        [ngClass]="'text-' + (col.align || 'start') + ' text-white'">
+                      {{ col.label }}
+                    </th>
                   </tr>
                 </thead>
-
                 <tbody>
-                  <tr *ngFor="let row of tableData">
-                    <td *ngFor="let column of tableColumns"
-                        [ngClass]="'text-' + (column.align || 'start')">
-
-                      <!-- Se houver key, formatar ou exibir valor -->
-                      <ng-container *ngIf="column.key; else customColumn">
+                  <tr *ngFor="let row of displayData">
+                    <td *ngFor="let col of tableColumns"
+                        [ngClass]="'text-' + (col.align || 'start')">
+                      <ng-container *ngIf="col.key; else custom">
                         <span [innerHTML]="
-                          column.format
-                            ? column.format(row[column.key], row)
-                            : row[column.key]
+                          col.format
+                            ? col.format(row[col.key], row)
+                            : row[col.key]
                         "></span>
                       </ng-container>
-
-                      <!-- Coluna customizável (ex: botão BUY) -->
-                      <ng-template #customColumn>
-                        <ng-container *ngIf="column.customRender">
+                      <ng-template #custom>
+                        <ng-container *ngIf="col.customRender">
                           <ng-container
-                            [ngTemplateOutlet]="column.customRender(row)"
+                            [ngTemplateOutlet]="col.customRender(row)"
                             [ngTemplateOutletContext]="{ $implicit: row }">
                           </ng-container>
                         </ng-container>
                       </ng-template>
-
+                    </td>
+                  </tr>
+                  <tr *ngIf="displayData.length === 0">
+                    <td [attr.colspan]="tableColumns.length" class="text-center py-3">
+                      No records found.
                     </td>
                   </tr>
                 </tbody>
               </table>
+              <!-- END TABLE -->
             </div>
           </div>
+
+          <nav *ngIf="totalPages > 1" class="pagination-container mt-3 mb-3">
+            <button
+              class="pagination-btn"
+              [disabled]="currentPage === 1"
+              (click)="goToPreviousPage()">
+              ‹ Previous
+            </button>
+
+            <span class="pagination-info">
+              Page {{ currentPage }} of {{ totalPages }}
+            </span>
+
+            <button
+              class="pagination-btn"
+              [disabled]="currentPage === totalPages"
+              (click)="goToNextPage()">
+              Next ›
+            </button>
+          </nav>
 
         </div>
       </div>
