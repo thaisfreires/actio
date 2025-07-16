@@ -1,18 +1,15 @@
-/* Cabeçalho roxo com texto branco */
 .table-striped thead th {
   background-color: #6a11cb;
   color: #fff;
   border: none;
 }
 
-/* Borda arredondada e sombra mais suave */
 .table-responsive .table {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* Input de quantidade igual ao modelo */
 .quantity-input {
   width: 70px;
   border-radius: 8px;
@@ -20,7 +17,6 @@
   font-size: 0.85rem;
 }
 
-/* Botão de ação centralizado e com estilo */
 .table td:last-child,
 .table th:last-child {
   text-align: center;
@@ -72,4 +68,39 @@
 .pagination-info {
   font-weight: 500;
   color: #333;
+}
+
+.sort-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  margin: 1rem 0;
+  font-weight: 500;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-bottom: 0.3rem;
+  }
+
+  select.form-select {
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+  }
+}
+.sort-filters select.form-select {
+  padding-right: 2.5rem;
+  background-position: right 0.75rem center !important;
+  background-size: 1rem 1rem;
+}
+.default-table-wrapper {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
