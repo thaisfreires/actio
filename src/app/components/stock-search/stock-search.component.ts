@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule }  from '@angular/forms';
 import { StockService, MarketStock } from '../../services/stock.service';
@@ -16,6 +16,9 @@ import { StockPurchasePopupComponent } from '../stock-purchase-popup/stock-purch
   styleUrls: ['./stock-search.component.scss']
 })
 export class StockSearchComponent {
+
+  @Output() purchaseCompleted = new EventEmitter<void>();
+
   searchTerm = '';
   selectedStock: MarketStock | null = null;
   clientBalance = 1000;
@@ -26,30 +29,30 @@ export class StockSearchComponent {
   constructor(private stockService: StockService) {}
 
   onSearch(): void {
-  const term = this.searchTerm.trim().toLowerCase();
-  this.errorMessage = '';
-  this.successMessage = '';
-  this.selectedStock = null;
+    const term = this.searchTerm.trim().toLowerCase();
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.selectedStock = null;
 
-  if (!term) {
-    return;
-  }
-
-  this.stockService.getStockByTicker(term).subscribe({
-    next: stock => {
-      if (stock) {
-        console.log(stock)
-        this.selectedStock = stock;
-      } else {
-        this.errorMessage = `No stock found for ticker "${term}".`;
-      }
-    },
-    error: err => {
-      console.error(err);
-      this.errorMessage = `An error occurred while searching for "${term}".`;
+    if (!term) {
+      return;
     }
-  });
-}
+
+    this.stockService.getStockByTicker(term).subscribe({
+      next: stock => {
+        if (stock) {
+          console.log(stock)
+          this.selectedStock = stock;
+        } else {
+          this.errorMessage = `No stock found for ticker "${term}".`;
+        }
+      },
+      error: err => {
+        console.error(err);
+        this.errorMessage = `An error occurred while searching for "${term}".`;
+      }
+    });
+  }
 
   selectStock(stock: MarketStock): void {
     this.showPurchasePopup = true;
@@ -71,6 +74,10 @@ export class StockSearchComponent {
     this.errorMessage = message;
     this.successMessage = '';
     this.showPurchasePopup = false;
+  }
+
+  handlePurchaseSuccess(): void {
+    this.purchaseCompleted.emit();
   }
 
 }
