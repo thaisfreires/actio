@@ -1,16 +1,44 @@
-:root {
-  --actio-purple: #6f42c1;
-  --actio-light-purple: #f3ebfa;
+/* Cabeçalho roxo com texto branco */
+.table-striped thead th {
+  background-color: #6a11cb;
+  color: #fff;
+  border: none;
 }
 
-.card-header {
-  border-bottom: 1px solid #e0e0e0;
+/* Borda arredondada e sombra mais suave */
+.table-responsive .table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
-.table-hover tbody tr:hover {
-  background-color: var(--actio-light-purple);
+/* Input de quantidade igual ao modelo */
+.quantity-input {
+  width: 70px;
+  border-radius: 8px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.85rem;
 }
 
-.text-primary {
-  color: var(--actio-purple) !important;
+/* Botão de ação centralizado e com estilo */
+.table td:last-child,
+.table th:last-child {
+  text-align: center;
+}
+
+.btn-success {
+  background-color: #6a11cb;
+  border: none;
+  border-radius: 8px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.btn-success:hover {
+  background-color: #5510a3;
+}
+
+.table-responsive .table-striped thead th.text-muted {
+  color: #fff;
 }
