@@ -1,0 +1,121 @@
+<div class="stock-search-container">
+    <!-- Search Bar -->
+    <div class="search-section mb-3">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        placeholder="Search stock name..."
+        class="form-control"
+      />
+      <button class="btn btn-primary mt-2" (click)="onSearch()">Search</button>
+    </div>
+
+    <!-- Sort by -->
+    <div class="sort-filters">
+      <div class="form-group">
+        <label for="sortBy">Sort by:</label>
+        <select id="sortBy" [(ngModel)]="sortBy" (change)="onSearch()">
+          <option value="delta">Change</option>
+          <option value="price">Price</option>
+        </select>
+      </div>
+    
+      <div class="form-group">
+        <label for="sortDirection">Order:</label>
+        <select id="sortDirection" [(ngModel)]="sortDirection" (change)="onSearch()">
+          <option value="asc">Ascending ↑</option>
+          <option value="desc">Descending ↓</option>
+        </select>
+      </div>
+    </div>
+    
+    
+  
+    <!-- Stock Table -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Stock</th>
+          <th>Price</th>
+          <th>Change</th>
+          <th>Quantity</th>
+          <th></th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <tr *ngFor="let s of filteredStocks">
+          <td>{{ s.stockName }}</td>
+          <td>${{ s.price }}</td>
+          <td [ngStyle]="{ color: s.delta >= 0 ? 'green' : 'red' }">
+            {{ s.delta >= 0 ? '+' : '' }}{{ s.delta }}%
+          </td>
+          <td>
+            <input
+              type="number"
+              min="1"
+              [value]="quantities[s.idStock] || 1"
+              (input)="quantities[s.idStock] = $any($event.target).valueAsNumber"
+              class="form-control form-control-sm quantity-input"
+              style="width: 70px"
+            />
+          </td>
+          <td>
+            <button class="btn btn-sm btn-success" (click)="selectStock(s)">BUY</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Alert Insufficient balance -->
+    <div *ngIf="insufficientFunds" class="alert alert-danger mt-3 text-center">
+      Insufficient balance to complete this purchase.
+    </div>
+    
+
+    <!-- Pagination -->
+    <nav *ngIf="totalPages > 1" class="pagination-container mt-4">
+      <button
+        class="pagination-btn"
+        [disabled]="currentPage === 1"
+        (click)="goToPreviousPage()"
+      >
+        ‹ Previous
+      </button>
+    
+      <span class="pagination-info">Page {{ currentPage }} of {{ totalPages }}</span>
+    
+      <button
+        class="pagination-btn"
+        [disabled]="currentPage === totalPages"
+        (click)="goToNextPage()"
+      >
+        Next ›
+      </button>
+    </nav>
+    
+      
+
+    <div *ngIf="errorMessage" class="alert alert-warning text-center mt-3">
+        {{ errorMessage }}
+    </div>
+      
+  
+    <!-- Confirmation Modal -->
+    <div class="popup-backdrop" *ngIf="showConfirmationModal">
+      <div class="popup-modal">
+        <h2>Confirm Purchase</h2>
+        <p>
+          Are you sure you want to buy 1 share of
+          {{ stock?.stockName }} for ${{ stock?.price }}?
+        </p>
+        <div class="buttons">
+          <button (click)="confirmPurchase()">Confirm</button>
+          <button (click)="cancelPurchase()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
