@@ -26,6 +26,11 @@ export class ClientWalletComponent implements OnInit {
           console.error('Unable to retrieve wallet information from the server', err);
         }
     });
+
+    this.stockItems = this.stockItems.map(row => ({
+      ...row,
+      position: row.quantity * row.currentValue
+    }));
   }
 
   onBuy(item: StockItem): void {
@@ -45,33 +50,46 @@ export class ClientWalletComponent implements OnInit {
   @ViewChild('sellButton', { static: true }) sellButtonTemplate!: TemplateRef<any>;
 
   tableColumns: TableColumn[] = [
-    { label: 'Stock', key: 'stockName', align: 'start' as const },
-    { label: 'Shares', key: 'quantity', align: 'end' as const },
     {
-      label: 'Market Price',
-      key: 'currentValue',
-      align: 'end' as const,
-      format: (value: number) => `€ ${value.toFixed(2)}`
+      label: 'Stock',
+      key: 'stockName',
+      align: 'start'
     },
     {
       label: 'Daily Change',
       key: 'dailyVariation',
-      align: 'end' as const,
+      align: 'end',
       format: (value: string) =>
         value.startsWith('-')
           ? `<span class="text-danger"><i class="fas fa-caret-down me-1"></i>${value}</span>`
           : `<span class="text-success"><i class="fas fa-caret-up me-1"></i>${value}</span>`
     },
     {
+      label: 'Shares',
+      key: 'quantity',
+      align: 'end'
+    },
+    {
+      label: 'Market Price',
+      key: 'currentValue',
+      align: 'end',
+      format: (value: number) => `€ ${value.toFixed(2)}`
+    },
+    {
+      label: 'Position',
+      key: 'position',
+      align: 'end',
+      format: (value: number) => `€ ${value.toFixed(2)}`
+    },
+    {
       label: '',
-      align: 'center' as const,
+      align: 'center',
       customRender: (row: StockItem) => this.buyButtonTemplate
     },
     {
       label: '',
-      align: 'center' as const,
+      align: 'center',
       customRender: (row: StockItem) => this.sellButtonTemplate
     }
   ];
-
 }
