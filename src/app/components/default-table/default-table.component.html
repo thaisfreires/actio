@@ -1,0 +1,54 @@
+<section class="portfolio-overview py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10">
+        <div class="card shadow-2-strong">
+          <div class="card-header bg-light d-flex flex-column align-items-start">
+            <h5 class="fw-bold mb-1">{{ tableTitle }}</h5>
+            <small class="text-muted">{{ tableSubTitle }}</small>
+          </div>
+
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0 align-middle">
+                <thead class="bg-light">
+                  <tr>
+                    <th *ngFor="let column of tableColumns"
+                        [ngClass]="'text-' + (column.align || 'start')"
+                        class="text-muted">
+                      {{ column.label }}
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let row of tableData">
+                    <td *ngFor="let column of tableColumns"
+                        [ngClass]="'text-' + (column.align || 'start')">
+
+                      <!-- Com chave e formatador -->
+                      <ng-container *ngIf="column.key; else customColumn">
+                        <span [innerHTML]="column.format ? column.format(row[column.key], row) : row[column.key]"></span>
+                      </ng-container>
+
+                      <!-- Coluna personalizada (ex: botões) -->
+                      <ng-template #customColumn>
+                        <ng-container *ngIf="column.customRender">
+                          <ng-container [ngTemplateOutlet]="column.customRender(row)"
+                                        [ngTemplateOutletContext]="{ $implicit: row }">
+                          </ng-container>
+                        </ng-container>
+                      </ng-template>
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

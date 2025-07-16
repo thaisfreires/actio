@@ -52,3 +52,28 @@ input.form-control {
   padding: 8px;
 }
 
+.encerrar-conta-btn {
+  margin-top: 2rem;
+  background-color: #6a11cb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #5510a3; 
+  }
+}
+
+.encerrar-conta-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.success-alert {
+  margin-top: 2rem; 
+}

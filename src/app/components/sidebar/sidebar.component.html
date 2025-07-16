@@ -1,0 +1,60 @@
+
+<!--Main Navigation-->
+
+<header>
+    <!-- Sidebar -->
+    <nav class="sidebar-overlay"
+    [ngClass]="{ 'sidebar-open': isOpen }"
+    *ngIf="isOpen"
+    (click)="onCloseClick()">
+      <div class="sidebar-content d-flex flex-column h-100" (click)="$event.stopPropagation()">
+        <div class="text-center fw-bold">
+          User Panel
+        </div>
+        <div class="list-group list-group-flush mx-3 mt-4">
+          <a [routerLink]="'/homepage'"
+            class="list-group-item list-group-item-action py-2 mb-3 border-0 ripple custom-purple-hover"
+            aria-current="true">
+            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
+          </a>
+          <a [routerLink]="'/wallet'"
+            class="list-group-item list-group-item-action py-2 mb-3 border-0 ripple custom-purple-hover"
+            aria-current="true"><i class="fas fa-wallet fa-fw me-3"></i><span>Wallet</span>
+          </a>
+          <a [routerLink]="'/transaction'"
+            class="list-group-item list-group-item-action py-2 mb-3 border-0 ripple custom-purple-hover"
+            aria-current="true"><i class="fas fa-receipt fa-fw me-3"></i><span>Transactions</span>
+          </a>
+          <a [routerLink]="'/movement'"
+            class="list-group-item list-group-item-action py-2 mb-3 border-0 ripple custom-purple-hover"
+            aria-current="true"><i class="fas fa-landmark fa-fw me-3"></i><span>Movements</span>
+          </a>
+          <a [routerLink]="'/profile'"
+            class="list-group-item list-group-item-action py-2 mb-3 border-0 ripple custom-purple-hover"
+            aria-current="true"><i class="fas fa-circle-user fa-fw me-3"></i><span>Profile</span>
+          </a>
+          
+         
+
+        </div>
+
+        <div class=" mt-auto mx-4 mb-4">
+          <a href="/login" 
+            class="list-group-item list-group-item-action py-2 border-0 ripple custom-purple-hover">
+            <i class="fas fa-sign-out-alt fa-fw me-3"></i><span>Logout</span>
+          </a>
+        </div>
+
+      </div>
+    </nav>
+    <!-- Sidebar -->
+  
+    
+  </header>
+  <!--Main Navigation-->
+  
+  <!--Main layout-->
+  <main style="margin-top: 58px;">
+    <div class="container pt-4"></div>
+  </main>
+  <!--Main layout-->

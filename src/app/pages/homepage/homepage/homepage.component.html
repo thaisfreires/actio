@@ -1,0 +1,116 @@
+<app-navbar></app-navbar>
+
+
+  <div class="p-3">
+    <div class="bg-white rounded-2xl custom-purple-shadow p-6">
+      <h2 class="fw-bold text-center mb-5">My Portfolio</h2>
+  
+      <!-- Flex container horizontal -->
+      <div class="row overflow-auto flex-nowrap">
+        <div *ngFor="let stock of userStockItems"
+            class="col-lg-2 col-md-12 mb-4 mb-lg-0">
+            <div class="card h-100 border border-3"
+             [ngClass]="{
+               'border-success': stock.quote.changePercent.includes('+') || !stock.quote.changePercent.includes('-'),
+               'border-danger': stock.quote.changePercent.includes('-')
+             }">
+             <div class="card-body"
+             [ngClass]="{
+               'bg-light-green': stock.quote.changePercent.includes('+') || !stock.quote.changePercent.includes('-'),
+               'bg-light-red': stock.quote.changePercent.includes('-')
+             }">
+             <!--<div class="card">-->
+  
+          <div class="flex justify-between items-center">
+            <h3 class="text-lg text-center font-semibold">{{ stock.stockName }}</h3>
+            <span class="text-sm text-gray-500">{{ stock.quantity }} shares</span>
+          </div>
+  
+          <div class="text-xl font-bold mt-1">
+            {{ stock.quote.price | number:'1.2-2' }}€ <span class="text-sm text-gray-400">/ share</span>
+          </div>
+  
+          <div class="text-sm text-gray-700">
+            Total: <b>{{ getTotalValue(stock) | number:'1.2-2' }} €</b>
+          </div>
+  
+          <div class="fw-semibold"
+          [ngClass]="{
+            'text-success': stock.quote.changePercent.includes('+') || !stock.quote.changePercent.includes('-'),
+            'text-danger': stock.quote.changePercent.includes('-')
+          }">
+            {{ stock.quote.changePercent }}
+          </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+ 
+
+
+  <div class=" row p-4">
+    <div class="col-md-4 mb-4">
+      
+      <div class="card custom-purple-shadow rounded-4 p-4 text-white" style="max-width: 550px;">
+        <div class="mt-4 d-flex justify-content-between align-items-center p-3 rounded-3" style="background-color: #7e5bef; max-width: 350px">
+          <div>
+            <h6 class="fw-bold text-light mb-1">Balance</h6>
+            <h2 class="fw-bold">{{ totalBalance | number:'1.2-2' }} €</h2>
+          </div>
+          <div [ngClass]="percentageChange >= 0 ? 'bg-success' : 'bg-danger'" class="px-3 py-2 rounded-3">
+            <span class="fw-semibold">{{ percentageChange | number:'1.2-2' }}%</span>
+          </div>
+        </div>
+      
+        <div class="mt-4 d-flex justify-content-between align-items-center p-3 rounded-3" style="background-color: #1c1c1c; max-width: 450px">
+          <div>
+            <h6 class="text-light fw-bold mb-1">Invested</h6>
+            <h5 class="fw-bold text-white">{{ totalInvested | number:'1.2-2' }} €</h5>
+          </div>
+          <a [routerLink]="'/#'">
+          <div class="btn btn-primary rounded-circle">
+              <i class="fas fa-arrow-right"></i>
+            
+          </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 g-0 mb-4">
+      <div class="card custom-purple-shadow rounded p-3" style="max-width: 600px; height: 400px; overflow: hidden;">
+        <div class="d-flex justify-content-center">
+        <h4 lass="text-center fw-bold mb-3"> Portfolio Analytics</h4>
+      </div>
+        <ngx-charts-line-chart
+        [view]="[550, 320]"
+        [results]="portfolioHistory"
+        [scheme]="colorScheme"
+        [xAxis]="true"
+        [yAxis]="true"
+        [legend]="false"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxisLabel]="'Date'"
+        [yAxisLabel]="'Total Value (€)'"
+        [autoScale]="true"
+        [animations]="true"
+        [gradient]="false"
+        [tooltipDisabled]="false">
+        </ngx-charts-line-chart>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <app-watchlist [stockItems]="stockItems"></app-watchlist>
+    </div>
+  </div>
+  
+  
+  <app-footer></app-footer>
+  
+
+
+  
