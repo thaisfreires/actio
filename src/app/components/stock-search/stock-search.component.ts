@@ -66,4 +66,11 @@ export class StockSearchComponent {
     }
     this.showPurchasePopup = false;
   }
+
+  handlePurchaseError(message: string): void {
+    this.errorMessage = message;
+    this.successMessage = '';
+    this.showPurchasePopup = false;
+  }
+
 }

@@ -61,12 +61,13 @@
 
   <!-- Purchase Popup -->
   <app-stock-purchase-popup
-    *ngIf="showPurchasePopup"
-    [stockName]="selectedStock?.stockName ?? ''"
-    [unitPrice]="selectedStock?.price ?? 0"
-    [availableBalance]="clientBalance"
-    (onConfirm)="handleConfirmPurchase($event)"
-    (onCancel)="showPurchasePopup = false"
-  >
-  </app-stock-purchase-popup>
+  *ngIf="showPurchasePopup"
+  [stockName]="selectedStock?.stockName ?? ''"
+  [stockId]="selectedStock?.idStock ?? 0"
+  [unitPrice]="selectedStock?.price ?? 0"
+  [availableBalance]="clientBalance"
+  (onConfirm)="handleConfirmPurchase($event)"
+  (onCancel)="showPurchasePopup = false"
+  (errorMessage)="handlePurchaseError($event)"
+></app-stock-purchase-popup>
 </section>
