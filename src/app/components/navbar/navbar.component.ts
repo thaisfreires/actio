@@ -14,11 +14,7 @@ export class NavbarComponent {
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
   }
-
   closeSidebar() {
     this.sidebarOpen = false;
   }
-
- 
-
 }
