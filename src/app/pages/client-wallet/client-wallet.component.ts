@@ -2,17 +2,19 @@ import { WalletService } from './../../services/wallet.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DefaultTableComponent, TableColumn } from "../../components/default-table/default-table.component";
 import { StockItem } from '../../models/stock-item';
+import { StockSearchComponent } from "../../components/stock-search/stock-search.component";
+import { NavbarComponent } from "../../components/navbar/navbar.component";
+import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
   selector: 'app-client-wallet',
-  imports: [DefaultTableComponent],
+  imports: [DefaultTableComponent, StockSearchComponent, NavbarComponent, FooterComponent],
   templateUrl: './client-wallet.component.html',
   styleUrl: './client-wallet.component.scss'
 })
 export class ClientWalletComponent implements OnInit {
 
   stockItems: StockItem[] = []
-
 
   constructor(private walletService: WalletService){}
   ngOnInit(): void {
