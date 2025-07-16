@@ -16,21 +16,16 @@ export class ClientWalletComponent implements OnInit {
 
   constructor(private walletService: WalletService){}
   ngOnInit(): void {
-
-    this.walletService.getWallet().subscribe({
+    this.walletService.getWallet()
+      .subscribe({
         next: (response: StockItem[]) => {
-          console.log(response);
-          this.stockItems = response;
+          this.stockItems = response.map(row => ({
+            ...row,
+            position: row.quantity * row.currentValue
+          }));
         },
-        error: (err) => {
-          console.error('Unable to retrieve wallet information from the server', err);
-        }
-    });
-
-    this.stockItems = this.stockItems.map(row => ({
-      ...row,
-      position: row.quantity * row.currentValue
-    }));
+        error: err => console.error('Could not load wallet', err)
+      });
   }
 
   onBuy(item: StockItem): void {
