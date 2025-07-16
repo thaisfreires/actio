@@ -1,24 +1,30 @@
 <div class="popup-backdrop">
     <div class="popup-modal">
-      <h2>Confirm Purchase</h2>
+      <h2>Confirm
+        @if (isBuy) {
+        <span>PURCHASE</span>
+        } @else {
+          <span>SALE</span>
+        }
+      </h2>
       <p><strong>{{ stockName }}</strong></p>
       <p>Unit Price: €{{ unitPrice.toFixed(2) }}</p>
-  
+
       <div class="quantity-input">
         <label for="quantity">Quantity:</label>
         <input id="quantity" type="number" [(ngModel)]="quantity" min="1" />
       </div>
-  
+
       <p>Total: <strong>€{{ total.toFixed(2) }}</strong></p>
-  
-      <div *ngIf="hasInsufficientFunds" class="alert alert-danger">
-        Insufficient balance to complete this purchase.
+
+      <div *ngIf="blockMessage" class="alert alert-danger">
+        {{ blockMessage }}
       </div>
-  
+
       <div class="buttons">
-        <button [disabled]="hasInsufficientFunds" (click)="confirm()">Confirm</button>
+        <button [disabled]="hasInsufficientFunds || hasInsufficientShares" (click)="confirm()">Confirm</button>
         <button (click)="cancel()">Cancel</button>
       </div>
     </div>
   </div>
-  
+
