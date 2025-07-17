@@ -4,38 +4,29 @@
         <button (click)="toggleSidebar()" class="menu-btn" aria-label="Toggle menu">
           <i class="fas fa-bars"></i>
         </button>
-        <img src="assets/images/logo.png" alt="Actio Logo" class="logo" height="60px"/>
+        <a [routerLink]="['/homepage']" class="logo-link">
+          <img src="assets/images/logo.png" alt="Actio Logo" class="logo" height="60px"/>
+        </a>
+
       </div>
   
       <div class="nav-center">
         <ul class="nav-links">
-          <li class="dropdown">
-            <a href="#">Actio <i class="fas fa-chevron-down"></i></a>
-            <ul class="dropdown-menu">
-              <li><a routerLink="/overview">Overview</a></li>
-              <li><a routerLink="/features">Features</a></li>
-            </ul>
+          <li>
+            <a [routerLink]="['/overview']">Actio </a>
           </li>
-          <li class="dropdown">
-            <a href="#">Invest <i class="fas fa-chevron-down"></i></a>
-            <ul class="dropdown-menu">
-              <li><a routerLink="/stocks">Stocks</a></li>
-              <li><a routerLink="/crypto">Crypto</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#">Sobre <i class="fas fa-chevron-down"></i></a>
-            <ul class="dropdown-menu">
-              <li><a routerLink="/company">Company</a></li>
-              <li><a routerLink="/team">Team</a></li>
-            </ul>
+          <li>
+            <a [routerLink]="['/stocks']">Stocks </a>
+            </li>
+          <li>
+            <a [routerLink]="['/about']">About </a>
           </li>
         </ul>
       </div>
   
       <div class="nav-right">
-        <a routerLink="/login" class="nu-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
-        <a routerLink="/signup" class="nu-btn outlined"><i class="fas fa-user-plus"></i> Sign Up</a>
+        <a [routerLink]="['/login']" class="nu-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a [routerLink]="['/register']" class="nu-btn outlined"><i class="fas fa-user-plus"></i> Sign Up</a>
       </div>
     </div>
   </nav>

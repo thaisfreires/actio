@@ -10,7 +10,7 @@ import { ClientWalletComponent } from './pages/client-wallet/client-wallet.compo
 export const routes: Routes = [
     {
       path: '',
-      redirectTo: '/register',
+      redirectTo: '/homepage',
       pathMatch: 'full'
     },
     {
