@@ -1,0 +1,33 @@
+:host ::ng-deep .action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem 0.8rem;
+  min-width: 60px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, filter 0.2s ease;
+}
+
+/* BUY button (roxo) */
+:host ::ng-deep .buy-btn {
+  background-color: #6a11cb;
+  color: #fff;
+  border: none;
+}
+
+:host ::ng-deep .buy-btn:hover {
+  background-color: #5510a3;
+}
+
+/* SELL button (vermelho suave) */
+:host ::ng-deep .sell-btn {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+}
+
+:host ::ng-deep .sell-btn:hover {
+  filter: brightness(1.1);
+}

@@ -1,15 +1,24 @@
 <ng-template #buyButton let-item>
-  <button class="btn btn-outline-primary btn-sm" (click)="onBuy(item)">
-    <i class="fas fa-arrow-up me-1"></i> Buy
+  <button
+    class="btn btn-sm action-btn buy-btn"
+    (click)="onBuy(item)"
+    title="Buy {{ item.stockName }}"
+  >
+    <i class="fas fa-arrow-up me-1"></i>
+    BUY
   </button>
 </ng-template>
 
 <ng-template #sellButton let-item>
-  <button class="btn btn-outline-secondary btn-sm" (click)="onSell(item)">
-    <i class="fas fa-arrow-down me-1"></i> Sell
+  <button
+    class="btn btn-sm action-btn sell-btn"
+    (click)="onSell(item)"
+    title="Sell {{ item.stockName }}"
+  >
+    <i class="fas fa-arrow-down me-1"></i>
+    SELL
   </button>
 </ng-template>
-
 
 <app-default-table
   [tableTitle]="title"
