@@ -1,10 +1,9 @@
-<div class="card custom-purple-shadow rounded p-3" style="max-width: 600px; height: 400px">
   <!-- Botão de adicionar no canto superior direito -->
   <div class="position-absolute top-0 end-0 m-3">
     <div class="dropdown">
       <button class="btn btn-sm text-white"
               type="button"
-              style="background-color: #7e5bef;"
+              style="background-color: #6a11cb;"
               (click)="toggleDropdown()">
         <i class="fas fa-plus"></i>
       </button>
@@ -28,15 +27,16 @@
   </div>
 
   <!-- Título -->
-  <h2 class="fw-bold text-center mb-4">Watchlist</h2>
+  <h5 class="fw-semibold mb-3 modern-heading">Watchlist</h5>
 
   <!-- Lista de Stocks -->
+  <div class="watchlist-items"> 
   <ul class="list-group">
     <li *ngFor="let stock of watchlist"
         class="list-group-item d-flex justify-content-between align-items-center">
       
       <div>
-        <div class="fw-semibold">{{ stock.stockName }}</div>
+        <div class="fw-semibold text-purple">{{ stock.stockName }}</div>
         <small>
           {{ stock.quote.price | number:'1.2-2' }} € / share • 
           <span [ngClass]="{

@@ -10,44 +10,43 @@ import { TransactionType } from '../../../models/enums/TransactionType.enum';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../../components/navbar/navbar.component';
 import { FooterComponent } from '../../../components/footer/footer.component';
-
-
-
+import * as shape from 'd3-shape';
 
 @Component({
   selector: 'app-homepage',
-  imports: [NavbarComponent,CommonModule, NgxChartsModule, WatchlistComponent, RouterModule, FooterComponent],
+  imports: [
+    NavbarComponent,
+    CommonModule,
+    NgxChartsModule,
+    WatchlistComponent,
+    RouterModule,
+    FooterComponent
+  ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss'
 })
 export class HomepageComponent {
 
-
   stockItems: StockItem[] = [];
-
   userStockItems: UserStockItem[] = [];
-
-  
   accountStockHistory: AccountStockHistory[] = [];
-
   transactions: Transaction[] = [];
-  
 
   totalInvested = 0;
   totalBalance = 0;
   percentageChange = 0;
-
-  // dados transformados para o gráfico
   portfolioHistory: any[] = [];
+
+  width = 500;
+  height = 280;
+  curve = shape.curveLinear;
 
   ngOnInit(): void {
     this.loadMockData();
     this.calculateInvestments();
   }
 
-
   loadMockData(): void {
-    // MOCK STOCKS
     this.userStockItems = [
       {
         id: 1,
@@ -64,29 +63,27 @@ export class HomepageComponent {
         quantity: 100,
         quote: {
           price: 0.21,
-          changePercent: '1.45%'
+          changePercent: '+1.45%'
         }
       },
       {
-        id: 2,
+        id: 3,
         stockName: 'BCP.LS',
         quantity: 100,
         quote: {
           price: 0.21,
-          changePercent: '1.45%'
+          changePercent: '+1.45%'
         }
       },
       {
-        id: 2,
+        id: 4,
         stockName: 'BCP.LS',
         quantity: 100,
         quote: {
           price: 0.21,
-          changePercent: '1.45%'
+          changePercent: '+1.45%'
         }
-      },
-      
-     
+      }
     ];
 
     this.stockItems = [
@@ -95,7 +92,7 @@ export class HomepageComponent {
         stockName: 'BCP.LS',
         quote: {
           price: 0.21,
-          changePercent: '1.45%'
+          changePercent: '+1.45%'
         }
       },
       {
@@ -119,7 +116,7 @@ export class HomepageComponent {
         stockName: 'AAA.LS',
         quote: {
           price: 4.30,
-          changePercent: '1.51%'
+          changePercent: '+1.51%'
         }
       },
       {
@@ -137,9 +134,8 @@ export class HomepageComponent {
           price: 7.30,
           changePercent: '-0.27%'
         }
-      },
-
-    ]
+      }
+    ];
 
     this.transactions = [
       {
@@ -162,11 +158,6 @@ export class HomepageComponent {
       }
     ];
 
-
-
-
-
-    // MOCK HISTÓRICO DA CARTEIRA
     this.accountStockHistory = [
       { date: '2025-07-06', totalValue: 250.20 },
       { date: '2025-07-07', totalValue: 270.00 },
@@ -174,7 +165,7 @@ export class HomepageComponent {
       { date: '2025-07-09', totalValue: 274.55 },
       { date: '2025-07-10', totalValue: 277.10 }
     ];
-  
+
     this.portfolioHistory = [
       {
         name: 'Portfolio',
@@ -196,7 +187,6 @@ export class HomepageComponent {
     group: ScaleType.Ordinal,
     domain: ['#7e5bef']
   };
-  
 
   calculateInvestments(): void {
     this.totalInvested = this.transactions

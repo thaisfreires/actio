@@ -1,112 +1,129 @@
 <app-navbar></app-navbar>
 
 
-  <div class="p-3">
-    <div class="bg-white rounded-2xl custom-purple-shadow p-6">
-      <h2 class="fw-bold text-center mb-5">My Portfolio</h2>
-  
-      <!-- Flex container horizontal -->
-      <div class="row overflow-auto flex-nowrap">
-        <div *ngFor="let stock of userStockItems"
-            class="col-lg-2 col-md-12 mb-4 mb-lg-0">
-            <div class="card h-100 border border-3"
-             [ngClass]="{
-               'border-success': stock.quote.changePercent.includes('+') || !stock.quote.changePercent.includes('-'),
-               'border-danger': stock.quote.changePercent.includes('-')
-             }">
-             <div class="card-body"
-             [ngClass]="{
-               'bg-light-green': stock.quote.changePercent.includes('+') || !stock.quote.changePercent.includes('-'),
-               'bg-light-red': stock.quote.changePercent.includes('-')
-             }">
-             <!--<div class="card">-->
-  
-          <div class="flex justify-between items-center">
-            <h3 class="text-lg text-center font-semibold">{{ stock.stockName }}</h3>
-            <span class="text-sm text-gray-500">{{ stock.quantity }} shares</span>
+<!-- My Portfolio Section -->
+<div class="p-3">
+  <div class="bg-white border rounded-4 p-4 mb-4" style="border-color: #dee2e6;">
+    <h5 class="fw-semibold mb-3 modern-heading">Portfolio</h5>
+
+
+    <div class="row gy-4">
+      <div *ngFor="let stock of userStockItems" class="col-md-6 col-lg-4">
+        <div class="d-flex align-items-center border rounded-4 p-3 clean-card">
+
+          <!-- Ícone -->
+          <div class="icon-circle me-3">
+            <i class="fas fa-chart-line"></i>
           </div>
-  
-          <div class="text-xl font-bold mt-1">
-            {{ stock.quote.price | number:'1.2-2' }}€ <span class="text-sm text-gray-400">/ share</span>
+
+          <!-- Conteúdo -->
+          <div class="flex-grow-1">
+            <h5 class="mb-1 fw-bold text-purple">{{ stock.stockName }}</h5>
+            <div class="text-muted small">{{ stock.quantity }} shares</div>
+            <div class="small text-dark mt-1">
+              {{ stock.quote.price | number:'1.2-2' }} € / share
+            </div>
+            <div class="fw-semibold text-dark">
+              Total: {{ getTotalValue(stock) | number:'1.2-2' }} €
+            </div>
           </div>
-  
-          <div class="text-sm text-gray-700">
-            Total: <b>{{ getTotalValue(stock) | number:'1.2-2' }} €</b>
-          </div>
-  
-          <div class="fw-semibold"
-          [ngClass]="{
-            'text-success': stock.quote.changePercent.includes('+') || !stock.quote.changePercent.includes('-'),
-            'text-danger': stock.quote.changePercent.includes('-')
-          }">
+
+          <!-- Variação -->
+          <div
+            class="badge ms-3"
+            [ngClass]="{
+              'bg-success text-white': stock.quote.changePercent.includes('+'),
+              'bg-danger text-white': stock.quote.changePercent.includes('-')
+            }"
+          >
+            <i
+              [ngClass]="{
+                'fas fa-arrow-up': stock.quote.changePercent.includes('+'),
+                'fas fa-arrow-down': stock.quote.changePercent.includes('-')
+              }"
+              class="me-1"
+            ></i>
             {{ stock.quote.changePercent }}
-          </div>
-          </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+
   
   
  
 
+<!-- Dashboard Section -->
+<div class="row g-4 px-3 py-4 align-items-stretch">
+  <!-- Analytics Chart -->
+<!-- Analytics Chart -->
+<!-- Analytics Chart -->
+<div class="col-md-8 d-flex">
+  <div class="card border rounded-4 p-3 w-100 chart-container">
+    <h5 class="fw-semibold mb-3 modern-heading">Portfolio Analytics</h5>
+    <ngx-charts-area-chart
+    class="mx-auto"
+    style="max-width: 90%;"
+    [view]="[900, 500]"
+    [results]="portfolioHistory"
+    [scheme]="colorScheme"
+    [xAxis]="true"
+    [yAxis]="true"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [xAxisLabel]="'Date'"
+    [yAxisLabel]="'Total Value (€)'"
+    [autoScale]="true"
+    [animations]="true"
+    [gradient]="true"
+    [tooltipDisabled]="false"
+  ></ngx-charts-area-chart>
+  
+  </div>
+</div>
 
-  <div class=" row p-4">
-    <div class="col-md-4 mb-4">
-      
-      <div class="card custom-purple-shadow rounded-4 p-4 text-white" style="max-width: 550px;">
-        <div class="mt-4 d-flex justify-content-between align-items-center p-3 rounded-3" style="background-color: #7e5bef; max-width: 350px">
-          <div>
-            <h6 class="fw-bold text-light mb-1">Balance</h6>
-            <h2 class="fw-bold">{{ totalBalance | number:'1.2-2' }} €</h2>
-          </div>
-          <div [ngClass]="percentageChange >= 0 ? 'bg-success' : 'bg-danger'" class="px-3 py-2 rounded-3">
-            <span class="fw-semibold">{{ percentageChange | number:'1.2-2' }}%</span>
-          </div>
-        </div>
-      
-        <div class="mt-4 d-flex justify-content-between align-items-center p-3 rounded-3" style="background-color: #1c1c1c; max-width: 450px">
-          <div>
-            <h6 class="text-light fw-bold mb-1">Invested</h6>
-            <h5 class="fw-bold text-white">{{ totalInvested | number:'1.2-2' }} €</h5>
-          </div>
-          <a [routerLink]="'/#'">
-          <div class="btn btn-primary rounded-circle">
-              <i class="fas fa-arrow-right"></i>
-            
-          </div>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 g-0 mb-4">
-      <div class="card custom-purple-shadow rounded p-3" style="max-width: 600px; height: 400px; overflow: hidden;">
-        <div class="d-flex justify-content-center">
-        <h4 lass="text-center fw-bold mb-3"> Portfolio Analytics</h4>
-      </div>
-        <ngx-charts-line-chart
-        [view]="[550, 320]"
-        [results]="portfolioHistory"
-        [scheme]="colorScheme"
-        [xAxis]="true"
-        [yAxis]="true"
-        [legend]="false"
-        [showXAxisLabel]="true"
-        [showYAxisLabel]="true"
-        [xAxisLabel]="'Date'"
-        [yAxisLabel]="'Total Value (€)'"
-        [autoScale]="true"
-        [animations]="true"
-        [gradient]="false"
-        [tooltipDisabled]="false">
-        </ngx-charts-line-chart>
-      </div>
-    </div>
-    <div class="col-md-4 mb-4">
+
+
+
+  <!-- Right Column: Balance + Watchlist -->
+  <div class="col-md-4 d-flex flex-column gap-3">
+
+<!-- Balance & Invested Cards lado a lado -->
+<div class="d-flex flex-column flex-md-row gap-3">
+<!-- Invested -->
+<div class="card border rounded-4 p-4 flex-fill d-flex flex-column justify-content-center align-items-center text-center">
+  <h6 class="text-muted mb-1">Invested</h6>
+  <h4 class="fw-bold mb-2">{{ totalInvested | number:'1.2-2' }} €</h4>
+  <a [routerLink]="'/#'" class="btn btn-outline-primary btn-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+    <i class="fas fa-arrow-right"></i>
+  </a>
+</div>
+
+<!-- Balance -->
+<div class="card border rounded-4 p-4 flex-fill d-flex flex-column justify-content-center align-items-center text-center">
+  <h6 class="text-muted mb-1">Balance</h6>
+  <h4 class="fw-bold mb-2">{{ totalBalance | number:'1.2-2' }} €</h4>
+  <span class="badge ms-3"
+        [ngClass]="percentageChange >= 0 ? 'bg-success' : 'bg-danger'">
+    {{ percentageChange | number:'1.2-2' }}%
+  </span>
+</div>
+
+</div>
+
+
+
+    <!-- Watchlist -->
+    <div class="card border rounded-4 p-3 flex-grow-1">
       <app-watchlist [stockItems]="stockItems"></app-watchlist>
     </div>
   </div>
+</div>
+
+
   
   
   <app-footer></app-footer>

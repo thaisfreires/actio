@@ -1,12 +1,107 @@
-.bg-light-green {
-    background-color: #edfaf1 !important; /* verde claro */
-  }
-  
-  .bg-light-red {
-    background-color: #faebe9 !important; /* vermelho claro */
-  }
+:root {
+  --actio-purple: #6a11cb;
+  --actio-light-gray: #f8f9fa;
+}
 
-  .custom-purple-shadow {
-    box-shadow: 0 4px 12px rgba(126, 91, 239, 0.5); /* roxo com opacidade */
-  }
-  
+/* Fundo da página */
+body, .main-container {
+  background-color: var(--actio-light-gray);
+}
+
+/* Cores de destaque */
+.bg-light-green {
+  background-color: #edfaf1 !important;
+}
+
+.bg-light-red {
+  background-color: #faebe9 !important;
+}
+
+.text-purple {
+  color: #6a11cb;
+}
+
+/* Cartão clean e moderno */
+.clean-card {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+}
+
+/* Ícone redondo com estilo neutro */
+.icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--actio-light-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var#6a11cb;
+}
+
+/* Cartão genérico com hover */
+.custom-card {
+  border-radius: 16px;
+  background-color: #fdfdfd;
+  transition: box-shadow 0.3s ease;
+}
+
+.custom-card:hover {
+  box-shadow: 0 4px 12px rgba(126, 91, 239, 0.2);
+}
+
+/* Remover sombra padrão onde necessário */
+.shadow, .custom-purple-shadow {
+  box-shadow: none !important;
+}
+
+/* Cabeçalhos padrão sem margens */
+h5, h6 {
+  margin: 0;
+}
+
+/* Responsividade do gráfico */
+.chart-container {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+
+.chart-full {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+.card {
+  overflow: hidden; /* Evita estouro de conteúdo */
+}
+
+.text-purple {
+  color: #6a11cb;
+}
+
+.modern-heading {
+  font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+}
+
+.btn-outline-primary {
+  border-color: #6a11cb;
+  color: #6a11cb;
+}
+
+.btn-outline-primary:hover {
+  background-color: #6a11cb;
+  color: #fff;
+}
