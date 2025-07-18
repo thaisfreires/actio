@@ -6,6 +6,7 @@ import { UnauthorizedPageComponent } from './pages/unauthorized-page/unauthorize
 import { ProfileComponent } from './pages/profile/profile.component';
 import { roleGuard } from './auth/role.guard';
 import { ClientWalletComponent } from './pages/client-wallet/client-wallet.component';
+import { AboutComponent } from './pages/about/about.component';
 
 export const routes: Routes = [
     {
@@ -17,6 +18,11 @@ export const routes: Routes = [
       path: 'login',
       pathMatch: 'full',
       component: LoginComponent
+    },
+    {
+      path: 'about',
+      pathMatch: 'full',
+      component: AboutComponent
     },
     {
       path: 'register',
