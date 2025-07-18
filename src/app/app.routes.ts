@@ -10,7 +10,7 @@ import { ClientWalletComponent } from './pages/client-wallet/client-wallet.compo
 export const routes: Routes = [
     {
       path: '',
-      redirectTo: '/register',
+      redirectTo: '/homepage',
       pathMatch: 'full'
     },
     {
@@ -22,15 +22,20 @@ export const routes: Routes = [
       path: 'register',
       component: RegisterComponent
     },
-    {
-      path: 'homepage',
-      component: HomepageComponent,
-      canActivate: [roleGuard],
-      data: {roles: ['CLIENT', 'ADMIN']}
-    },
+//     {
+//       // path: 'homepage',
+//       // component: HomepageComponent
+//     }
+
     {
       path: 'unauthorized',
       component: UnauthorizedPageComponent
+    },
+    {
+      path: 'dashboard', 
+      component: HomepageComponent,
+      canActivate: [roleGuard],
+      data: { roles: ['CLIENT', 'ADMIN'] }
     },
     {
       path: 'profile',
@@ -42,6 +47,7 @@ export const routes: Routes = [
       path: 'wallet',
       component: ClientWalletComponent,
       canActivate: [roleGuard],
-      data: { roles: ['CLIENT'] }
+      data: { roles: ['CLIENT', 'ADMIN'] }
     }
+
 ];

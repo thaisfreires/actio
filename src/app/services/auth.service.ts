@@ -60,5 +60,9 @@ export class AuthService {
   hasRole(role: string): boolean {
     return this.getUserRoles().includes(role);
   }
+  logout(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/homepage']); 
+  }
 
 }

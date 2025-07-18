@@ -1,16 +1,65 @@
-<footer class="bg-purple text-white py-4 mt-auto">
-    <div class="container text-center">
-      <div class="row">
-        <div class="col-md-6 mb-2 mb-md-0">
-          <h5 class="mb-1">Actio</h5>
-          <small>&copy; 2025 All rights reserved</small>
-        </div>
-        <div class="col-md-6">
-          <a [routerLink]="'/homepage'" class="text-white me-3 text-decoration-none">DashBoard</a>
-          <a [routerLink]="'/profile'" class="text-white me-3 text-decoration-none">Profile</a>
-          <a [routerLink]="'/wallet'" class="text-white text-decoration-none">Wallet</a>
-        </div>
+<footer class="footer">
+   <div class="text-white pt-5">
+  <div class="container text-center text-md-left">
+    <div class="row">
+
+      <div class="col-md-3 mx-auto mb-4">
+          <img src="assets/images/logo.png" alt="Actio Logo" style="height: 180px; margin-bottom: 10px;">
+      </div>
+      
+      <div class="col-md-2 mx-auto mb-4">
+        <h6 class="text-uppercase font-weight-bold">Services</h6>
+        <hr
+          class="bg-light mb-4 mt-0 d-inline-block mx-auto"
+          style="width: 60px; height: 2px"
+        />
+        <ul class="list-unstyled">
+          <li>
+            <a [routerLink]="'/homepage'" class="text-white"
+              >Personal Banking</a
+            >
+          </li>
+          <li><a href="#!" class="text-white">Corporate Services</a></li>
+          <li><a href="#!" class="text-white">Investments</a></li>
+          <li><a href="#!" class="text-white">Transactions</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-2 mx-auto mb-4">
+        <h6 class="text-uppercase font-weight-bold">Useful Links</h6>
+        <hr
+          class="bg-light mb-4 mt-0 d-inline-block mx-auto"
+          style="width: 60px; height: 2px"
+        />
+        <ul class="list-unstyled">
+          <li><a href="#!" class="text-white">Privacy Policy</a></li>
+          <li><a href="#!" class="text-white">Terms of Use</a></li>
+          <li><a href="#!" class="text-white">Careers</a></li>
+          <li><a href="#!" class="text-white">Support</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mx-auto mb-4">
+        <h6 class="text-uppercase font-weight-bold">Contact</h6>
+        <hr
+          class="bg-light mb-4 mt-0 d-inline-block mx-auto"
+          style="width: 60px; height: 2px"
+        />
+        <ul class="list-unstyled">
+          <li>
+            <i class="fas fa-map-marker-alt me-2"></i> 123 Finance Blvd, Porto
+          </li>
+          <li><i class="fas fa-phone me-2"></i> +351 21 123 4567</li>
+          <li><i class="fas fa-envelope me-2"></i> support&#64;actio.pt</li>
+        </ul>
       </div>
     </div>
-  </footer>
-  
+  </div>
+    <div
+      class="footer-bottom text-center py-3"
+      style="background-color: #5a0fc7"
+    >
+      © 2025 Actio · All rights reserved
+    </div>
+   </div>
+</footer>
