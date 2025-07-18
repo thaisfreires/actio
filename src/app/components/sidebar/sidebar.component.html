@@ -39,8 +39,9 @@
         </div>
 
         <div class=" mt-auto mx-4 mb-4">
-          <a href="/login" 
-            class="list-group-item list-group-item-action py-2 border-0 ripple custom-purple-hover">
+          <a (click)="logout()" 
+            class="list-group-item list-group-item-action py-2 border-0 ripple custom-purple-hover"
+            style="cursor: pointer;">
             <i class="fas fa-sign-out-alt fa-fw me-3"></i><span>Logout</span>
           </a>
         </div>

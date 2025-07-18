@@ -46,8 +46,15 @@ export class ClientWalletComponent implements OnInit {
             position: row.quantity * row.currentValue
           }));
         },
-        error: err => console.error('Could not load wallet', err)
-      });
+        error: (err) => {
+          console.error('Unable to retrieve wallet information from the server', err);
+        }
+    });
+
+    this.stockItems = this.stockItems.map(row => ({
+      ...row,
+      position: row.quantity * row.currentValue
+    }));
   }
 
   onBuy(item: StockItem): void {
@@ -111,6 +118,7 @@ export class ClientWalletComponent implements OnInit {
       customRender: (row: StockItem) => this.sellButtonTemplate
     }
   ];
+
 
   handleTransactionSuccess(): void {
     this.successMessage = 'Transaction completed successfully!';

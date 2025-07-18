@@ -1,34 +1,38 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-
-        <div class="flex items-center space-x-2">
-            <button class="btn" style="background-color: #7e5bef; color: white;" (click)="toggleSidebar()">☰ Menu</button>
-            <!--<span class="navbar-brand mb-0 h1">My App</span> -->
-            
-            <span class="fw-semibold fs-5 ms-4">Hello User</span>
-        </div>
-        
-
-        
-
-        
-        <div></div>
-        <div></div>
-        <div class="fw-semibold fs-2 ms-5">
-            <a href="#">
-                Actio
-            </a>
-        </div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div class="me-4">
-            <a href="#">
-            <i class="text-center fas fa-circle-user fa-3x"></i>
+<nav class="navbar">
+    <div class="navbar-container">
+      <div class="nav-left">
+        <button (click)="toggleSidebar()" class="menu-btn" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <a [routerLink]="['/homepage']" class="logo-link">
+          <img src="assets/images/logo.png" alt="Actio Logo" class="logo" height="60px"/>
         </a>
-        </div>
-    </div>
-</nav>
-  
 
-<app-sidebar [isOpen]="sidebarOpen" (close)="closeSidebar()"></app-sidebar>
+      </div>
+  
+      <div class="nav-center">
+        <ul class="nav-links">
+          <li>
+            <a [routerLink]="['/overview']">Actio </a>
+          </li>
+          <li>
+            <a [routerLink]="['/stocks']">Stocks </a>
+            </li>
+          <li>
+            <a [routerLink]="['/about']">About </a>
+          </li>
+        </ul>
+      </div>
+  
+      <div class="nav-right">
+        <a *ngIf="!isLoggedIn" [routerLink]="['/login']" class="nu-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a *ngIf="!isLoggedIn" [routerLink]="['/register']" class="nu-btn outlined" style="cursor:pointer;"><i class="fas fa-user-plus"></i> Sign Up</a>
+
+        <a *ngIf="isLoggedIn" [routerLink]="['/profile']" class="nu-btn"><i class="fas fa-user"></i> Profile</a>
+        <a *ngIf="isLoggedIn" (click)="logout()" class="nu-btn outlined" style="cursor:pointer;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+  </nav>
+  
+  <app-sidebar *ngIf="isLoggedIn"  [isOpen]="sidebarOpen" (close)="closeSidebar()"></app-sidebar>
+  
