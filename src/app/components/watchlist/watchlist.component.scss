@@ -1,3 +1,32 @@
 .custom-purple-shadow {
     box-shadow: 0 4px 12px rgba(126, 91, 239, 0.5); /* roxo com opacidade */
   }
+
+  .modern-heading {
+    font-family: 'Poppins', 'Segoe UI', 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .text-purple {
+    color: #6a11cb; 
+  }
+  
+/* Scrollbar */
+  .watchlist-items {
+    max-height: 300px;      
+    overflow-y: auto;
+    padding-right: 8px;    
+  }
+  
+  
+  .watchlist-items::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .watchlist-items::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+  }
+  
