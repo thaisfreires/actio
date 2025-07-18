@@ -134,4 +134,26 @@ export class ClientWalletComponent implements OnInit {
     this.successMessage = '';
     this.showPurchasePopup = false;
   }
+
+  updateStockItemQuantity(stockId: number): void {
+    this.walletService.getStockQuantity(stockId)
+      .subscribe({
+        next: resp => {
+          const newList = this.stockItems.map(item => {
+            if (item.stockId === stockId) {
+              const updatedQty = resp.quantity;
+              return {
+                ...item,
+                quantity: updatedQty,
+                position: updatedQty * item.currentValue
+              };
+            }
+            return item;
+          });
+
+          this.stockItems = newList;
+        },
+        error: err => console.error(`Erro ao atualizar estoque ${stockId}:`, err)
+      });
+  }
 }

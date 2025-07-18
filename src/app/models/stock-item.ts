@@ -8,3 +8,7 @@ export interface StockItem {
 }
 
 
+export interface StockQuantityResponse {
+  stockId: number;
+  quantity: number;
+}
