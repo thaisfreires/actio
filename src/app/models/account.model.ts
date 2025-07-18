@@ -6,3 +6,9 @@ export interface Account {
     current: number;
     status: AccountStatus;
 }
+export interface AccountInfo {
+  id: number;
+  userEmail: string;
+  status: string;
+  currentBalance: number;
+}

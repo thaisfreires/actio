@@ -7,6 +7,7 @@ import { StockSearchComponent } from "../../components/stock-search/stock-search
 import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { FooterComponent } from "../../components/footer/footer.component";
 import { StockPurchasePopupComponent } from "../../components/stock-purchase-popup/stock-purchase-popup.component";
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-client-wallet',
@@ -20,13 +21,23 @@ export class ClientWalletComponent implements OnInit {
   selectedStock: StockItem | null = null;
   showPurchasePopup = false;
   isBuying = true;
-  // call API
-  clientBalance = 1000;
+  clientBalance = 0;
   errorMessage = '';
   successMessage = '';
 
-  constructor(private walletService: WalletService){}
+  constructor(private walletService: WalletService, private accountService: AccountService){}
   ngOnInit(): void {
+
+    this.accountService.getAccountBalance().subscribe({
+      next: (value) => {
+        this.clientBalance = value;
+        console.log(this.clientBalance)
+      },
+      error: (err) => {
+        console.error('Erro ao buscar saldo da conta:', err);
+      }
+    });
+
     this.walletService.getWallet()
       .subscribe({
         next: (response: StockItem[]) => {
