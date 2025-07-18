@@ -26,12 +26,13 @@
   
       <div class="nav-right">
         <a *ngIf="!isLoggedIn" [routerLink]="['/login']" class="nu-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
-        <a *ngIf="!isLoggedIn" (click)="logout()" [routerLink]="['/register']" class="nu-btn outlined" style="cursor:pointer;"><i class="fas fa-user-plus"></i> Sign Up</a>
+        <a *ngIf="!isLoggedIn" [routerLink]="['/register']" class="nu-btn outlined" style="cursor:pointer;"><i class="fas fa-user-plus"></i> Sign Up</a>
+
         <a *ngIf="isLoggedIn" [routerLink]="['/profile']" class="nu-btn"><i class="fas fa-user"></i> Profile</a>
-        <a *ngIf="isLoggedIn" (click)="logout()" [routerLink]="['/homepage']" class="nu-btn outlined" style="cursor:pointer;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a *ngIf="isLoggedIn" (click)="logout()" class="nu-btn outlined" style="cursor:pointer;"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </div>
     </div>
   </nav>
   
-  <app-sidebar [isOpen]="sidebarOpen" (close)="closeSidebar()"></app-sidebar>
+  <app-sidebar *ngIf="isLoggedIn"  [isOpen]="sidebarOpen" (close)="closeSidebar()"></app-sidebar>
   

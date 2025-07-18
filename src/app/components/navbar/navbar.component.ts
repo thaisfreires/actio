@@ -1,8 +1,9 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { RouterLink } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class NavbarComponent implements OnInit {
   isLoggedIn = false;
+  sidebarOpen = false;
 
   constructor(private authService: AuthService) {}
 
@@ -20,8 +22,7 @@ export class NavbarComponent implements OnInit {
   }
 
   checkLoginStatus(): void {
-    const token = this.authService.getToken();
-    this.isLoggedIn = !!token;
+    this.isLoggedIn = !!this.authService.getToken();
   }
 
   logout(): void {
@@ -29,12 +30,11 @@ export class NavbarComponent implements OnInit {
     this.isLoggedIn = false;
   }
 
-  sidebarOpen = false;
-
-  toggleSidebar() {
+  toggleSidebar(): void {
     this.sidebarOpen = !this.sidebarOpen;
   }
-  closeSidebar() {
+
+  closeSidebar(): void {
     this.sidebarOpen = false;
   }
 }

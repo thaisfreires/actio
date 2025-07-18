@@ -13,34 +13,15 @@ import { AuthService } from './services/auth.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
-  title = 'actio';
+export class AppComponent {
   showLayout = true;
-  isLoggedIn = false;
-  sidebarOpen = false;
 
-  constructor(private router: Router, private authService: AuthService) {}
-
-  ngOnInit(): void {
+  constructor(private router: Router) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
       const currentUrl = event.url;
       this.showLayout = !(currentUrl.includes('/login') || currentUrl.includes('/register'));
-      this.checkLoginStatus();
     });
-    
-  }
-
-  checkLoginStatus(): void {
-    this.isLoggedIn = !!this.authService.getToken();
-  }
-
-  toggleSidebar(): void {
-    this.sidebarOpen = !this.sidebarOpen;
-  }
-
-  closeSidebar(): void {
-    this.sidebarOpen = false;
   }
 }
