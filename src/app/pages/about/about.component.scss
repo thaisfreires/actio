@@ -1,0 +1,53 @@
+.about-container {
+    font-family: 'Segoe UI', sans-serif;
+    color: #2c2c2c;
+    background-color: #fdfdfd;
+  }
+  
+  .about-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 8%;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .about-section:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+  
+  .about-section .text {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .about-section .text h1,
+  .about-section .text h2 {
+    color: #6a11cb;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .about-section .text p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+  }
+  
+  .about-section .text ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .about-section .image {
+    flex: 1;
+    min-width: 280px;
+  }
+  
+  .about-section .image img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(106, 17, 203, 0.3);
+  }
+  
