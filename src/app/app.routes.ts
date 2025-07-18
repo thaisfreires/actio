@@ -5,7 +5,6 @@ import { HomepageComponent } from './pages/homepage/homepage/homepage.component'
 import { UnauthorizedPageComponent } from './pages/unauthorized-page/unauthorized-page.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { roleGuard } from './auth/role.guard';
-import { StockSearchComponent } from './components/stock-search/stock-search.component';
 import { ClientWalletComponent } from './pages/client-wallet/client-wallet.component';
 
 export const routes: Routes = [
@@ -38,13 +37,9 @@ export const routes: Routes = [
       data: { roles: ['CLIENT', 'ADMIN'] }
     },
     {
-
-      path: 'stock-test',
-      loadComponent: () => import('./components/stock-search/stock-search.component').then(m => m.StockSearchComponent)
-    }
       path: 'wallet',
       component: ClientWalletComponent,
       canActivate: [roleGuard],
       data: { roles: ['CLIENT'] }
-    },
+    }
 ];

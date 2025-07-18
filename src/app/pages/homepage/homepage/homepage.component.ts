@@ -8,19 +8,15 @@ import { WatchlistComponent } from '../../../components/watchlist/watchlist.comp
 import { Transaction } from '../../../models/transaction.model';
 import { TransactionType } from '../../../models/enums/TransactionType.enum';
 import { RouterModule } from '@angular/router';
-import { NavbarComponent } from '../../../components/navbar/navbar.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
 import * as shape from 'd3-shape';
 
 @Component({
   selector: 'app-homepage',
   imports: [
-    NavbarComponent,
     CommonModule,
     NgxChartsModule,
     WatchlistComponent,
-    RouterModule,
-    FooterComponent
+    RouterModule
   ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss'
