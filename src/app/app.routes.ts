@@ -24,7 +24,9 @@ export const routes: Routes = [
     },
     {
       path: 'homepage',
-      component: HomepageComponent
+      component: HomepageComponent,
+      canActivate: [roleGuard],
+      data: {roles: ['CLIENT', 'ADMIN']}
     },
     {
       path: 'unauthorized',
