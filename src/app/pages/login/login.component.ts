@@ -46,7 +46,7 @@ export class LoginComponent {
   }
   
   redirect() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/wallet']);
   }
   get f() {
     return this.form.controls;
