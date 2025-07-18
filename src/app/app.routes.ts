@@ -22,10 +22,11 @@ export const routes: Routes = [
       path: 'register',
       component: RegisterComponent
     },
-    {
-      // path: 'homepage',
-      // component: HomepageComponent
-    },
+//     {
+//       // path: 'homepage',
+//       // component: HomepageComponent
+//     }
+
     {
       path: 'unauthorized',
       component: UnauthorizedPageComponent
@@ -47,6 +48,6 @@ export const routes: Routes = [
       component: ClientWalletComponent,
       canActivate: [roleGuard],
       data: { roles: ['CLIENT', 'ADMIN'] }
-    },
+    }
 
 ];

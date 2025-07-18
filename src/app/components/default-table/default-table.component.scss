@@ -1,16 +1,106 @@
-:root {
-  --actio-purple: #6f42c1;
-  --actio-light-purple: #f3ebfa;
+.table-striped thead th {
+  background-color: #6a11cb;
+  color: #fff;
+  border: none;
 }
 
-.card-header {
-  border-bottom: 1px solid #e0e0e0;
+.table-responsive .table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
-.table-hover tbody tr:hover {
-  background-color: var(--actio-light-purple);
+.quantity-input {
+  width: 70px;
+  border-radius: 8px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.85rem;
 }
 
-.text-primary {
-  color: var(--actio-purple) !important;
+.table td:last-child,
+.table th:last-child {
+  text-align: center;
+}
+
+.btn-success {
+  background-color: #6a11cb;
+  border: none;
+  border-radius: 8px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.btn-success:hover {
+  background-color: #5510a3;
+}
+
+.table-responsive .table-striped thead th.text-muted {
+  color: #fff;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pagination-btn {
+  background-color: #6a11cb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #5510a3;
+}
+
+.pagination-info {
+  font-weight: 500;
+  color: #333;
+}
+
+.sort-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  margin: 1rem 0;
+  font-weight: 500;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-bottom: 0.3rem;
+  }
+
+  select.form-select {
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+  }
+}
+.sort-filters select.form-select {
+  padding-right: 2.5rem;
+  background-position: right 0.75rem center !important;
+  background-size: 1rem 1rem;
+}
+.default-table-wrapper {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }

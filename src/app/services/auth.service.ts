@@ -29,6 +29,12 @@ export class AuthService {
     return this.http.post('http://localhost:8080/users/save', request);
   }
 
+  logout(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']); 
+  }
+  
+
 
   getToken(): string | null {
     return localStorage.getItem('token');
