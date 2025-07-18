@@ -1,26 +1,50 @@
+import { CommonModule } from '@angular/common';
 import { WalletService } from './../../services/wallet.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DefaultTableComponent, TableColumn } from "../../components/default-table/default-table.component";
 import { StockItem } from '../../models/stock-item';
+import { StockSearchComponent } from "../../components/stock-search/stock-search.component";
+import { NavbarComponent } from "../../components/navbar/navbar.component";
+import { FooterComponent } from "../../components/footer/footer.component";
+import { StockPurchasePopupComponent } from "../../components/stock-purchase-popup/stock-purchase-popup.component";
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-client-wallet',
-  imports: [DefaultTableComponent],
+  imports: [CommonModule, DefaultTableComponent, StockSearchComponent, NavbarComponent, FooterComponent, StockPurchasePopupComponent],
   templateUrl: './client-wallet.component.html',
   styleUrl: './client-wallet.component.scss'
 })
 export class ClientWalletComponent implements OnInit {
 
   stockItems: StockItem[] = []
+  selectedStock: StockItem | null = null;
+  showPurchasePopup = false;
+  isBuying = true;
+  clientBalance = 0;
+  errorMessage = '';
+  successMessage = '';
 
-
-  constructor(private walletService: WalletService){}
+  constructor(private walletService: WalletService, private accountService: AccountService){}
   ngOnInit(): void {
 
-    this.walletService.getWallet().subscribe({
+    this.accountService.getAccountBalance().subscribe({
+      next: (value) => {
+        this.clientBalance = value;
+        console.log(this.clientBalance)
+      },
+      error: (err) => {
+        console.error('Erro ao buscar saldo da conta:', err);
+      }
+    });
+
+    this.walletService.getWallet()
+      .subscribe({
         next: (response: StockItem[]) => {
-          console.log(response);
-          this.stockItems = response;
+          this.stockItems = response.map(row => ({
+            ...row,
+            position: row.quantity * row.currentValue
+          }));
         },
         error: (err) => {
           console.error('Unable to retrieve wallet information from the server', err);
@@ -34,13 +58,15 @@ export class ClientWalletComponent implements OnInit {
   }
 
   onBuy(item: StockItem): void {
-    console.log('Buying', item.stockName);
-    // To implement
+    this.selectedStock = item;
+    this.isBuying = true;
+    this.showPurchasePopup = true;
   }
 
   onSell(item: StockItem): void {
-    console.log('Selling', item.stockName);
-    // To implement
+    this.selectedStock = item;
+    this.isBuying = false;
+    this.showPurchasePopup = true;
   }
 
   title: string = "My Wallet";
@@ -92,4 +118,61 @@ export class ClientWalletComponent implements OnInit {
       customRender: (row: StockItem) => this.sellButtonTemplate
     }
   ];
+
+
+  handleTransactionSuccess(): void {
+    this.successMessage = 'Transaction completed successfully!';
+    this.refreshWallet();
+
+    setTimeout(() => {
+      this.successMessage = '';
+    }, 5000);
+  }
+
+  refreshWallet(): void {
+    this.walletService.getWallet().subscribe({
+      next: (response: StockItem[]) => {
+        this.stockItems = [...response.map(row => ({
+          ...row,
+          position: row.quantity * row.currentValue
+        }))];
+      },
+      error: err => console.error('Could not refresh wallet', err)
+    });
+  }
+
+  handleConfirmTransaction(quantity: number): void {
+    this.successMessage = `${this.isBuying ? 'Purchased' : 'Sold'} ${quantity} share(s) of ${this.selectedStock?.stockName}.`;
+    this.showPurchasePopup = false;
+
+    setTimeout(() => this.successMessage = '', 5000);
+  }
+
+  handleTransactionError(message: string): void {
+    this.errorMessage = message;
+    this.successMessage = '';
+    this.showPurchasePopup = false;
+  }
+
+  updateStockItemQuantity(stockId: number): void {
+    this.walletService.getStockQuantity(stockId)
+      .subscribe({
+        next: resp => {
+          const newList = this.stockItems.map(item => {
+            if (item.stockId === stockId) {
+              const updatedQty = resp.quantity;
+              return {
+                ...item,
+                quantity: updatedQty,
+                position: updatedQty * item.currentValue
+              };
+            }
+            return item;
+          });
+
+          this.stockItems = newList;
+        },
+        error: err => console.error(`Erro ao atualizar estoque ${stockId}:`, err)
+      });
+  }
 }

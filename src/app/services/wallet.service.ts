@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
-import { StockItem } from '../models/stock-item';
+import { StockItem, StockQuantityResponse } from '../models/stock-item';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,11 @@ export class WalletService {
     return this.http.get<StockItem[]>(this.walletUrl);
   }
 
+
+  getStockQuantity(stockId: number): Observable<StockQuantityResponse> {
+    const url = `${this.walletUrl}/${stockId}/quantity`;
+    return this.http.get<StockQuantityResponse>(url);
+  }
 
 
 }

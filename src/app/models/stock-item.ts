@@ -1,5 +1,5 @@
 export interface StockItem {
-
+  stockId: number
   stockName: string;
   quantity: number;
   currentValue: number;
@@ -8,3 +8,7 @@ export interface StockItem {
 }
 
 
+export interface StockQuantityResponse {
+  stockId: number;
+  quantity: number;
+}

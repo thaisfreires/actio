@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, map } from 'rxjs';
+import { Account, AccountInfo } from '../models/account.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
+
+  constructor(private http: HttpClient){}
+  accUrl = 'http://localhost:8080/accounts'
+
   validateAccountClosure(): Observable<{ allowed: boolean, reasons: string[] }> {
-    // ⚠️ Mock de critérios de encerramento – simula lógica do backend
     const hasPendingTransactions = false;
     const hasPositiveBalance = false;
 
@@ -17,4 +22,14 @@ export class AccountService {
       reasons
     });
   }
+
+  getAccountBalance(): Observable<number> {
+    const url = `${this.accUrl}/info`;
+    return this.http.get<AccountInfo>(url).pipe(
+      map(account => account.currentBalance)
+    );
+  }
+
+
+
 }

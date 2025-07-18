@@ -1,3 +1,9 @@
+<app-navbar>\</app-navbar>
+<app-stock-search (purchaseCompleted)="refreshWallet()" />
+
+<div *ngIf="successMessage" class="alert alert-success text-center mt-3">
+  {{ successMessage }}
+</div>
 <ng-template #buyButton let-item>
   <button
     class="btn btn-sm action-btn buy-btn"
@@ -26,3 +32,18 @@
   [tableData]="stockItems"
   [tableColumns]="tableColumns">
 </app-default-table>
+
+<app-stock-purchase-popup
+  *ngIf="showPurchasePopup"
+  [stockName]="selectedStock?.stockName ?? ''"
+  [stockId]="selectedStock?.stockId ?? 0"
+  [unitPrice]="selectedStock?.currentValue ?? 0"
+  [availableBalance]="clientBalance"
+  [availableShares]="selectedStock?.quantity ?? 0"
+  [isBuy]="isBuying"
+  (onConfirm)="handleConfirmTransaction($event)"
+  (onCancel)="showPurchasePopup = false"
+  (errorMessage)="handleTransactionError($event)"
+  (onSuccess)="handleTransactionSuccess()"
+/>
+<app-footer></app-footer>
