@@ -66,6 +66,36 @@ body {
       line-height: 1.5;
     }
 
+    .card-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+    
+      h3, p {
+        pointer-events: none;
+      }
+    }
+    
+    .btn-primary {
+      background-color: #6a11cb;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+      color: #fff;
+      transition: background-color 0.3s;
+    
+      &:hover {
+        background-color: #4b6cb7;
+      }
+    }
+
     .card-image {
       width: 100%;
       height: 150px;
