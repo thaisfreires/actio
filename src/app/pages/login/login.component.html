@@ -49,6 +49,10 @@
           >
             Login
           </button>
+          <div class="text-center mt-3">
+            Don't have an account?
+            <a class="text-primary" [routerLink]="['/register']"> Sign up</a>
+          </div>
         </div>
         @if (isError) {
         <div [ngClass]="{ 'text-danger': isError }">
