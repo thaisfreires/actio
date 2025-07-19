@@ -7,6 +7,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { roleGuard } from './auth/role.guard';
 import { ClientWalletComponent } from './pages/client-wallet/client-wallet.component';
 import { AboutComponent } from './pages/about/about.component';
+import { MovementsComponent } from './pages/movements/movements.component';
 
 export const routes: Routes = [
     {
@@ -52,6 +53,12 @@ export const routes: Routes = [
     {
       path: 'wallet',
       component: ClientWalletComponent,
+      canActivate: [roleGuard],
+      data: { roles: ['CLIENT', 'ADMIN'] }
+    },
+    {
+      path: 'movements',
+      component: MovementsComponent,
       canActivate: [roleGuard],
       data: { roles: ['CLIENT', 'ADMIN'] }
     }
