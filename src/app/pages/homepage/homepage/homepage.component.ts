@@ -3,12 +3,15 @@ import { UserStockItem } from '../../../models/user-stock-item.model';
 import { AccountStockHistory } from '../../../models/account-stock-history.model';
 import { CommonModule } from '@angular/common';
 import { NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
-import { StockItem } from '../../../models/stock-item.model';
+import { StockItemToMock } from '../../../models/stockitemtomock.model';
 import { WatchlistComponent } from '../../../components/watchlist/watchlist.component';
 import { Transaction } from '../../../models/transaction.model';
 import { TransactionType } from '../../../models/enums/TransactionType.enum';
 import { RouterModule } from '@angular/router';
 import * as shape from 'd3-shape';
+import { WalletService } from '../../../services/wallet.service';
+import { StockItem } from '../../../models/stock-item';
+
 
 @Component({
   selector: 'app-homepage',
@@ -23,8 +26,11 @@ import * as shape from 'd3-shape';
 })
 export class HomepageComponent {
 
-  stockItems: StockItem[] = [];
-  userStockItems: UserStockItem[] = [];
+  userStockItems: StockItem[] = [];
+  loadMockStockItems: boolean = false;
+
+  stockItems: StockItemToMock[] = [];
+  mockUserStockItems: UserStockItem[] = [];
   accountStockHistory: AccountStockHistory[] = [];
   transactions: Transaction[] = [];
 
@@ -37,13 +43,32 @@ export class HomepageComponent {
   height = 280;
   curve = shape.curveLinear;
 
+
+  constructor(private walletService: WalletService){}
+
+
   ngOnInit(): void {
+    this.walletService.getWallet()
+    .subscribe({
+      next: (response: StockItem[]) => {
+        this.userStockItems = response.map(row => ({
+          ...row,
+          position: row.quantity * row.currentValue
+        }));
+      },
+      error: (err) => {
+        this.loadMockStockItems = true;
+        console.error('Unable to retrieve wallet information from the server', err);
+      }
+  });
+
+
     this.loadMockData();
     this.calculateInvestments();
   }
 
   loadMockData(): void {
-    this.userStockItems = [
+    this.mockUserStockItems = [
       {
         id: 1,
         stockName: 'NOS.LS',
@@ -177,6 +202,11 @@ export class HomepageComponent {
     return stock.quantity * stock.quote.price;
   }
 
+  getTotalCurrentValue(stock: StockItem): number {
+    return stock.quantity * stock.currentValue;
+  }
+
+
   colorScheme = {
     name: 'customPurple',
     selectable: true,
@@ -189,7 +219,7 @@ export class HomepageComponent {
       .filter(t => t.transaction_type === TransactionType.Buy)
       .reduce((sum, t) => sum + t.negotiation_price * t.quantity, 0);
 
-    this.totalBalance = this.userStockItems
+    this.totalBalance = this.mockUserStockItems
       .reduce((sum, s) => sum + s.quantity * s.quote.price, 0);
 
     this.percentageChange = this.totalInvested === 0

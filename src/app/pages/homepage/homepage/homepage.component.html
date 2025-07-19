@@ -1,13 +1,12 @@
 
-
 <!-- My Portfolio Section -->
 <div class="p-3">
   <div class="bg-white border rounded-4 p-4 mb-4" style="border-color: #dee2e6;">
     <h5 class="fw-semibold mb-3 modern-heading">Portfolio</h5>
 
-
-    <div class="row gy-4">
-      <div *ngFor="let stock of userStockItems" class="col-md-6 col-lg-4">
+    <!-- Mock Stock Items -->
+    <div *ngIf="loadMockStockItems" class="row gy-4">
+      <div *ngFor="let stock of mockUserStockItems" class="col-md-6 col-lg-4">
         <div class="d-flex align-items-center border rounded-4 p-3 clean-card">
 
           <!-- Ícone -->
@@ -44,11 +43,52 @@
             ></i>
             {{ stock.quote.changePercent }}
           </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- User Stock Items -->
+    <div *ngIf="!loadMockStockItems" class="row gy-4">
+      <div *ngFor="let stock of userStockItems" class="col-md-6 col-lg-4">
+        <div class="d-flex align-items-center border rounded-4 p-3 clean-card">
+
+          <!-- Ícone -->
+          <div class="icon-circle me-3">
+            <i class="fas fa-chart-line"></i>
+          </div>
+
+          <!-- Conteúdo -->
+          <div class="flex-grow-1">
+            <h5 class="mb-1 fw-bold text-purple">{{ stock.stockName }}</h5>
+            <div class="text-muted small">{{ stock.quantity }} shares</div>
+            <div class="small text-dark mt-1">
+              {{ stock.currentValue | number:'1.2-2' }} € / share
+            </div>
+            <div class="fw-semibold text-dark">
+              Total: {{ getTotalCurrentValue(stock) | number:'1.2-2' }} €
+            </div>
+          </div>
+
+          <!-- Variação -->
+          <div
+            class="badge ms-3"
+            [ngClass]="stock.dailyVariation.includes('-') ? 'bg-danger text-white' : 'bg-success text-white'"
+          >
+            <i
+              [ngClass]="stock.dailyVariation.includes('-') ? 'fas fa-arrow-down' : 'fas fa-arrow-up'"
+              class="me-1"
+            ></i>
+            {{ stock.dailyVariation }}
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
 
 <!-- Dashboard Section -->
 <div class="row g-4 px-3 py-4 align-items-stretch">
@@ -74,7 +114,7 @@
     [gradient]="true"
     [tooltipDisabled]="false"
   ></ngx-charts-area-chart>
-  
+
   </div>
 </div>
 
@@ -115,7 +155,6 @@
 </div>
 
 
-  
 
 
-  
+
