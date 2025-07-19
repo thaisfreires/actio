@@ -1,11 +1,18 @@
-<app-navbar *ngIf="showLayout"></app-navbar>
+<app-navbar @if(showLayout)></app-navbar>
 
 <div class="layout-container">
-  <app-sidebar *ngIf="showLayout && isLoggedIn" [isOpen]="sidebarOpen" (close)="closeSidebar()"></app-sidebar>
+  <app-sidebar
+    @if(showLayout && isLoggedIn)
+    [isOpen]="sidebarOpen"
+    (close)="sidebarService.closeSidebar()"
+  ></app-sidebar>
 
-  <main class="main-content" [class.with-sidebar]="showLayout && isLoggedIn && sidebarOpen">
+  <main
+    class="main-content"
+    [class.with-sidebar]="showLayout && isLoggedIn && sidebarOpen"
+  >
     <router-outlet></router-outlet>
-
-    <app-footer *ngIf="showLayout"></app-footer>
+    <app-footer @if(showLayout)></app-footer>
   </main>
 </div>
+
