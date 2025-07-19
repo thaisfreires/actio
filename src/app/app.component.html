@@ -1,18 +1,23 @@
-<app-navbar @if(showLayout)></app-navbar>
+@if(showLayout){
+  <app-navbar></app-navbar>
+}
 
 <div class="layout-container">
+  @if(showLayout && isLoggedIn){
   <app-sidebar
-    @if(showLayout && isLoggedIn)
     [isOpen]="sidebarOpen"
     (close)="sidebarService.closeSidebar()"
   ></app-sidebar>
-
+  }
   <main
     class="main-content"
     [class.with-sidebar]="showLayout && isLoggedIn && sidebarOpen"
   >
     <router-outlet></router-outlet>
-    <app-footer @if(showLayout)></app-footer>
+    @if(showLayout){
+      <app-footer></app-footer>
+    }
+    
   </main>
 </div>
 
