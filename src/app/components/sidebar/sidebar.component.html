@@ -1,61 +1,82 @@
-
-<!--Main Navigation-->
-
-<header>
-    <!-- Sidebar -->
-    <nav class="sidebar-overlay"
-    [ngClass]="{ 'sidebar-open': isOpen }"
-    *ngIf="isOpen"
-    (click)="onCloseClick()">
-      <div class="sidebar-content d-flex flex-column h-100" (click)="$event.stopPropagation()">
-        <div class="text-center fw-bold">
-          User Panel
-        </div>
-        <div class="list-group list-group-flush mx-3 mt-4">
-          <a [routerLink]="'/homepage'"
-            class="list-group-item list-group-item-action py-2 mb-3 border-0 ripple custom-purple-hover"
-            aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
-          </a>
-          <a [routerLink]="'/wallet'"
-            class="list-group-item list-group-item-action py-2 mb-3 border-0 ripple custom-purple-hover"
-            aria-current="true"><i class="fas fa-wallet fa-fw me-3"></i><span>Wallet</span>
-          </a>
-          <a [routerLink]="'/transaction'"
-            class="list-group-item list-group-item-action py-2 mb-3 border-0 ripple custom-purple-hover"
-            aria-current="true"><i class="fas fa-receipt fa-fw me-3"></i><span>Transactions</span>
-          </a>
-          <a [routerLink]="'/movement'"
-            class="list-group-item list-group-item-action py-2 mb-3 border-0 ripple custom-purple-hover"
-            aria-current="true"><i class="fas fa-landmark fa-fw me-3"></i><span>Movements</span>
-          </a>
-          <a [routerLink]="'/profile'"
-            class="list-group-item list-group-item-action py-2 mb-3 border-0 ripple custom-purple-hover"
-            aria-current="true"><i class="fas fa-circle-user fa-fw me-3"></i><span>Profile</span>
-          </a>
-          
-         
-
-        </div>
-
-        <div class=" mt-auto mx-4 mb-4">
-          <a (click)="logout()" 
-            class="list-group-item list-group-item-action py-2 border-0 ripple custom-purple-hover"
-            style="cursor: pointer;">
-            <i class="fas fa-sign-out-alt fa-fw me-3"></i><span>Logout</span>
-          </a>
-        </div>
-
-      </div>
-    </nav>
-    <!-- Sidebar -->
-  
+<!-- Sidebar -->
+<nav
+  class="sidebar-overlay position-fixed top-0 start-0 h-100 d-flex flex-column"
+  [class.sidebar-open]="isOpen" 
+  [ngClass]="{ 'sidebar-open': isOpen }"
+  *ngIf="isOpen"
+  (click)="onCloseClick()"
+>
+  <div
+    class="sidebar-content d-flex flex-column h-100 bg-white shadow"
+    (click)="$event.stopPropagation()"
+    style="width: 260px; padding: 1.5rem;"
+  >
+    <!-- Logo -->
+    <div class="text-center py-3 border.bottom mb-4">
+      <a [routerLink]="['/']" class="text-decoration-none">
+      <img
+        src="assets/images/logo.png"
+        alt="Actio Logo"
+        style="max-width: 150px; height: auto;"
+      />
+      </a>
+    </div>
     
-  </header>
-  <!--Main Navigation-->
-  
-  <!--Main layout-->
-  <main style="margin-top: 58px;">
-    <div class="container pt-4"></div>
-  </main>
-  <!--Main layout-->
+
+    <!-- Menu Links -->
+    <div class="list-group list-group-flush">
+
+      <a
+        [routerLink]="['/dashboard']"
+        class="list-group-item list-group-item-action border-0 ripple custom-purple-hover mb-3"
+      >
+        <i class="fas fa-tachometer-alt fa-fw me-3 text-purple"></i>
+        <span class="fw-medium">Dashboard</span>
+      </a>
+
+      <a
+        [routerLink]="['/wallet']"
+        class="list-group-item list-group-item-action border-0 ripple custom-purple-hover mb-3"
+      >
+        <i class="fas fa-wallet fa-fw me-3 text-purple"></i>
+        <span class="fw-medium">Wallet</span>
+      </a>
+
+      <a
+        [routerLink]="['/transactions']"
+        class="list-group-item list-group-item-action border-0 ripple custom-purple-hover mb-3"
+      >
+        <i class="fas fa-receipt fa-fw me-3 text-purple"></i>
+        <span class="fw-medium">Transactions</span>
+      </a>
+
+      <a
+        [routerLink]="['/movements']"
+        class="list-group-item list-group-item-action border-0 ripple custom-purple-hover mb-3"
+      >
+        <i class="fas fa-landmark fa-fw me-3 text-purple"></i>
+        <span class="fw-medium">Movements</span>
+      </a>
+
+      <a
+        [routerLink]="['/profile']"
+        class="list-group-item list-group-item-action border-0 ripple custom-purple-hover mb-3"
+      >
+        <i class="fas fa-circle-user fa-fw me-3 text-purple"></i>
+        <span class="fw-medium">Profile</span>
+      </a>
+    </div>
+
+    <!-- Logout -->
+    <div class="mt-auto">
+      <a
+        (click)="logout()"
+        class="list-group-item list-group-item-action border-0 ripple custom-purple-hover"
+        style="cursor: pointer"
+      >
+        <i class="fas fa-sign-out-alt fa-fw me-3 text-danger"></i>
+        <span class="fw-medium text-danger">Logout</span>
+      </a>
+    </div>
+  </div>
+</nav>
