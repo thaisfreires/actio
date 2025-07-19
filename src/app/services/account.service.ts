@@ -10,6 +10,7 @@ export class AccountService {
   constructor(private http: HttpClient){}
   accUrl = 'http://localhost:8080/accounts'
 
+
   validateAccountClosure(): Observable<{ allowed: boolean, reasons: string[] }> {
     const hasPendingTransactions = false;
     const hasPositiveBalance = false;
@@ -30,16 +31,5 @@ export class AccountService {
       map(account => account.currentBalance)
     );
   }
-  getMovementHistory(): Observable<Movement[]> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
-    const url = `${this.accUrl}/movements/history`;
-    return this.http.get<Movement[]>(url, { headers });
-  }
-
-
 
 }

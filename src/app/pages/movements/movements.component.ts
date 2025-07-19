@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../services/account.service';
+import { MovementResponse } from '../../models/movement.model';
+import { MovementService } from '../../services/movement.service';
 
 @Component({
   selector: 'app-movements',
@@ -8,84 +10,87 @@ import { AccountService } from '../../services/account.service';
   styleUrl: './movements.component.scss'
 })
 export class MovementsComponent implements OnInit {
-  movements: any[] = [];
-  displayData: any[] = [];
 
-  tableColumns = [
-    { key: 'date', label: 'Date', align: 'start' },
-    { key: 'type', label: 'Type', align: 'start' },
-    { key: 'amount', label: 'Amount', align: 'end', format: this.formatAmount },
-    { key: 'description', label: 'Description', align: 'start' }
-  ];
+  movements: Movement[] = [];
+  displayData: Movement[] = [];
+  tableColumns: any[] = [];
 
   sortKey = '';
-  sortDirection = 'asc';
+  sortDirection: 'asc' | 'desc' = 'asc';
 
   currentPage = 1;
   pageSize = 10;
   totalPages = 1;
-  emptyRows = [];
+  emptyRows: any[] = [];
 
-  constructor() {}
-
+  constructor(private movementService: MovementService) {}
+  
   ngOnInit(): void {
+    this.tableColumns = [
+      { label: 'ID', key: 'id' },
+      { label: 'Amount', key: 'amount' },
+      { label: 'Type', key: 'type' },
+      { label: 'Date & Time', key: 'dateTime', format: this.formatDate }
+    ];
     this.fetchMovements();
   }
-
-  fetchMovements() {
-    this.accountService.getMovements().subscribe((data: any[]) => {
-      this.movements = data;
-      this.updateDisplayData();
+  fetchMovements(): void {
+    this.movementService.getMovements().subscribe({
+      next: (data) => {
+        this.movements = data;
+        this.sortAndPaginate();
+      },
+      error: (err) => console.error('Failed to load movements', err)
     });
   }
+  formatDate = (value: string) => {
+    return new Date(value).toLocaleString();
+  };
 
-  updateDisplayData() {
-    let sorted = [...this.movements];
+  sortAndPaginate(): void {
+    let data = [...this.movements];
 
     if (this.sortKey) {
-      sorted.sort((a, b) => {
-        const aValue = a[this.sortKey];
-        const bValue = b[this.sortKey];
-        return this.sortDirection === 'asc'
-          ? aValue > bValue ? 1 : -1
-          : aValue < bValue ? 1 : -1;
+      data.sort((a, b) => {
+        const valA = (a as any)[this.sortKey];
+        const valB = (b as any)[this.sortKey];
+        if (valA < valB) return this.sortDirection === 'asc' ? -1 : 1;
+        if (valA > valB) return this.sortDirection === 'asc' ? 1 : -1;
+        return 0;
       });
     }
 
-    this.totalPages = Math.ceil(sorted.length / this.pageSize);
+    this.totalPages = Math.ceil(data.length / this.pageSize);
     const start = (this.currentPage - 1) * this.pageSize;
     const end = start + this.pageSize;
-    this.displayData = sorted.slice(start, end);
+    this.displayData = data.slice(start, end);
 
-    this.emptyRows = Array(this.pageSize - this.displayData.length).fill(null);
+    const remaining = this.pageSize - this.displayData.length;
+    this.emptyRows = Array(remaining).fill({});
   }
 
-  onSortKeyChange(_: any) {
+  onSortKeyChange(): void {
     this.currentPage = 1;
-    this.updateDisplayData();
+    this.sortAndPaginate();
   }
 
-  onSortDirectionChange(_: any) {
+  onSortDirectionChange(): void {
     this.currentPage = 1;
-    this.updateDisplayData();
+    this.sortAndPaginate();
   }
 
-  goToPreviousPage() {
+  goToPreviousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.updateDisplayData();
+      this.sortAndPaginate();
     }
   }
 
-  goToNextPage() {
+  goToNextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
-      this.updateDisplayData();
+      this.sortAndPaginate();
     }
-  }
-
-  formatAmount(value: any): string {
-    return `$${parseFloat(value).toFixed(2)}`;
   }
 
 }
