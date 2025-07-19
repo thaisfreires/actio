@@ -6,11 +6,12 @@ import { UnauthorizedPageComponent } from './pages/unauthorized-page/unauthorize
 import { ProfileComponent } from './pages/profile/profile.component';
 import { roleGuard } from './auth/role.guard';
 import { ClientWalletComponent } from './pages/client-wallet/client-wallet.component';
+import { AboutComponent } from './pages/about/about.component';
 
 export const routes: Routes = [
     {
       path: '',
-      redirectTo: '/homepage',
+      redirectTo: '/home',
       pathMatch: 'full'
     },
     {
@@ -19,13 +20,18 @@ export const routes: Routes = [
       component: LoginComponent
     },
     {
+      path: 'about',
+      pathMatch: 'full',
+      component: AboutComponent
+    },
+    {
       path: 'register',
       component: RegisterComponent
     },
-//     {
-//       // path: 'homepage',
-//       // component: HomepageComponent
-//     }
+    {
+      path: 'homepage',
+      component: HomeComponent
+    },
 
     {
       path: 'unauthorized',
