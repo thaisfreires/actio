@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { StockItem } from '../../models/stock-item.model';
+import { StockItemToMock } from '../../models/stockitemtomock.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,9 +10,9 @@ import { CommonModule } from '@angular/common';
 })
 export class WatchlistComponent {
 
-  @Input() stockItems: StockItem[] = [];
+  @Input() stockItems: StockItemToMock[] = [];
 
-  watchlist: StockItem[] = [];
+  watchlist: StockItemToMock[] = [];
 
   dropdownOpen = false;
 
@@ -20,19 +20,19 @@ export class WatchlistComponent {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  get availableStocks(): StockItem[] {
+  get availableStocks(): StockItemToMock[] {
     return this.stockItems.filter(s => !this.watchlist.some(w => w.stockName === s.stockName));
   }
 
-  addToWatchlist(stock: StockItem): void {
+  addToWatchlist(stock: StockItemToMock): void {
     if (!this.watchlist.find(s => s.stockName === stock.stockName)) {
       this.watchlist.push(stock);
       this.dropdownOpen = false;
     }
   }
 
-  removeFromWatchlist(stock: StockItem): void {
+  removeFromWatchlist(stock: StockItemToMock): void {
     this.watchlist = this.watchlist.filter(s => s.stockName !== stock.stockName);
   }
-  
+
 }

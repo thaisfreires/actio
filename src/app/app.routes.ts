@@ -39,7 +39,7 @@ export const routes: Routes = [
       component: UnauthorizedPageComponent
     },
     {
-      path: 'dashboard', 
+      path: 'dashboard',
       component: HomepageComponent,
       canActivate: [roleGuard],
       data: { roles: ['CLIENT', 'ADMIN'] }
