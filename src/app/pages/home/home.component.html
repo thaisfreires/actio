@@ -1,62 +1,65 @@
-<!-- Header Section -->
 <header class="hero">
     <h1>Welcome to Actio</h1>
     <p>
       At Actio, a proud division of Actio Bank, we redefine investment security and personal finance management.
-      Our clients enjoy seamless transactions, expert guidance, and 24/7 support—all in a refined, secure environment.
+      Enjoy expert guidance, seamless transactions, and 24/7 support—all in a secure, elegant platform.
     </p>
   </header>
   
   <section class="section">
     <div class="card-container">
-      <div class="card">
-        <div class="image-placeholder">
-            <img [src]="image1" alt="Trusted by Thousands" />  
+      <a class="card card-link" [routerLink]="['/login']">
+        <div class="card-image">
+          <img [src]="image1" alt="Trusted by Thousands" />
         </div>
         <h3>Trusted by Thousands</h3>
-        <p>Actio is built on the legacy of Actio Bank, offering unmatched reliability and trust in every transaction.</p>
-      </div>
-      <div class="card">
-        <div class="image-placeholder">
-            <img [src]="image2" alt="Investment Made Easy" />
+        <p>Rooted in the legacy of Actio Bank, our platform is trusted by investors worldwide.</p>
+      </a>
+  
+      <a class="card card-link" [routerLink]="['/login']">
+        <div class="card-image">
+          <img [src]="image2" alt="Investment Made Easy" />
         </div>
-        <h3>Elegant Investment Tools</h3>
-        <p>Our platform combines sophistication with simplicity, empowering users to manage assets effortlessly.</p>
-      </div>
+        <h3>Efficient Investment Tools</h3>
+        <p>Manage your investments with simplicity, clarity, and confidence.</p>
+      </a>
     </div>
   </section>
   
   <section class="section">
     <h2 class="section-title">Our Services</h2>
     <div class="card-container">
-      <div class="card">
-        <div class="image-placeholder">
-            <img [src]="image3" alt="Personal & Investment Accounts" />
+      <a class="card card-link" [routerLink]="['/about']">
+        <div class="card-image">
+          <img [src]="image3" alt="Accounts" />
         </div>
         <h3>Personal & Investment Accounts</h3>
         <p>Open and manage your accounts with full transparency and control.</p>
-      </div>
-      <div class="card">
-        <div class="image-placeholder">
-            <img [src]="image4" alt="Secure Transactions" />
+      </a>
+  
+      <a class="card card-link" [routerLink]="['/about']">
+        <div class="card-image">
+          <img [src]="image4" alt="Secure Transactions" />
         </div>
         <h3>Secure Transactions</h3>
-        <p>Enjoy peace of mind with our encrypted and monitored transaction systems.</p>
-      </div>
-      <div class="card">
-        <div class="image-placeholder">
-            <img [src]="image5" alt="Stock Trading" />
+        <p>Benefit from encrypted systems and monitored operations for peace of mind.</p>
+      </a>
+  
+      <a class="card card-link" [routerLink]="['/about']">
+        <div class="card-image">
+          <img [src]="image5" alt="Stock Trading" />
         </div>
         <h3>Stock Trading</h3>
-        <p>Buy and sell shares with real-time data and intuitive tools.</p>
-      </div>
-      <div class="card">
-        <div class="image-placeholder">
-            <img [src]="image6" alt="Banking Services" />
+        <p>Trade confidently with real-time data and intelligent tools.</p>
+      </a>
+  
+      <a class="card card-link" [routerLink]="['/about']">
+        <div class="card-image">
+          <img [src]="image6" alt="Advisory" />
         </div>
         <h3>24/7 Advisory</h3>
-        <p>Our consultants are available around the clock to assist you with your financial journey.</p>
-      </div>
+        <p>Our expert consultants are always available to guide your financial decisions.</p>
+      </a>
     </div>
   </section>
   
@@ -64,18 +67,19 @@
     <h2 class="section-title">Why Choose Actio</h2>
     <div class="card-container">
       <div class="card">
-        <div class="image-placeholder">
-            <img [src]="image7" alt="Visionary Approach" />
+        <div class="card-image">
+          <img [src]="image7" alt="Security First" />
         </div>
         <h3>Security First</h3>
-        <p>We prioritize your safety with advanced security protocols and constant monitoring.</p>
+        <p>We prioritize your safety with advanced protocols and compliance with global standards.</p>
       </div>
+  
       <div class="card">
-        <div class="image-placeholder">
-            <img [src]="image8" alt="Visionary Approach" />
+        <div class="card-image">
+          <img [src]="image8" alt="Elegant Experience" />
         </div>
         <h3>Elegant Experience</h3>
-        <p>Our interface is designed for clarity, speed, and sophistication.</p>
+        <p>Enjoy a refined, intuitive interface designed for clarity, speed, and sophistication.</p>
       </div>
     </div>
   </section>
@@ -83,20 +87,26 @@
   <section class="section">
     <h2 class="section-title">Get Started Today</h2>
     <div class="card-container">
-      <div class="card">
-        <div class="image-placeholder">
-            <img [src]="image9" alt="Create Your Account" />
+      <a class="card card-link" [routerLink]="['/register']">
+        <div class="card-image">
+          <img [src]="image9" alt="Create Your Account" />
         </div>
         <h3>Create Your Account</h3>
-        <p>Join Actio and begin your journey toward smarter investing.</p>
-      </div>
-      <div class="card">
-        <div class="image-placeholder">
-            <img [src]="image10" alt="Talk to a Consultant" />
+        <p>Start investing smarter. Join Actio in just a few minutes.</p>
+      </a>
+  
+      <a class="card card-link" [routerLink]="['/register']">
+        <div class="card-image">
+          <img [src]="image10" alt="Talk to a Consultant" />
         </div>
         <h3>Talk to a Consultant</h3>
-        <p>Connect with our experts and receive personalized financial advice.</p>
-      </div>
+        <p>Receive personalized guidance from our certified advisors.</p>
+      </a>
     </div>
+  </section>
+
+  <section class="section text-center">
+    <h2 class="section-title">Ready to take control of your financial future?</h2>
+    <a [routerLink]="['/register']" class="btn btn-primary mt-3">Open Your Account</a>
   </section>
   
