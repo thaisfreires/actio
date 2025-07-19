@@ -11,7 +11,7 @@ import { AboutComponent } from './pages/about/about.component';
 export const routes: Routes = [
     {
       path: '',
-      redirectTo: '/homepage',
+      redirectTo: '/home',
       pathMatch: 'full'
     },
     {
@@ -28,10 +28,10 @@ export const routes: Routes = [
       path: 'register',
       component: RegisterComponent
     },
-//     {
-//       // path: 'homepage',
-//       // component: HomepageComponent
-//     }
+    {
+      path: 'homepage',
+      component: HomeComponent
+    },
 
     {
       path: 'unauthorized',
