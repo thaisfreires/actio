@@ -1,7 +1,7 @@
 <nav class="navbar">
     <div class="navbar-container">
       <div class="nav-left">
-        <button (click)="toggleSidebar()" class="menu-btn" aria-label="Toggle menu">
+        <button *ngIf="isLoggedIn" (click)="toggleSidebar()"  class="menu-btn" aria-label="Toggle menu">
           <i class="fas fa-bars"></i>
         </button>
         <a [routerLink]="['/homepage']" class="logo-link">
@@ -33,6 +33,4 @@
       </div>
     </div>
   </nav>
-  
-  <app-sidebar *ngIf="isLoggedIn"  [isOpen]="sidebarOpen" (close)="closeSidebar()"></app-sidebar>
   
