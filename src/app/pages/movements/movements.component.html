@@ -1,1 +1,8 @@
-
+<app-default-table
+  [tableColumns]="tableColumns"
+  (sortKeyChange)="onSortKeyChange()"
+  (sortDirectionChange)="onSortDirectionChange()"
+  (previousPage)="goToPreviousPage()"
+  (nextPage)="goToNextPage()"
+>
+</app-default-table>
