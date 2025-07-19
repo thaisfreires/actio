@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from '../../services/account.service';
-import { MovementResponse } from '../../models/movement.model';
+import { Movement, MovementResponse } from '../../models/movement.model';
 import { MovementService } from '../../services/movement.service';
+import { DefaultTableComponent } from '../../components/default-table/default-table.component';
 
 @Component({
   selector: 'app-movements',
-  imports: [],
+  imports: [DefaultTableComponent],
   templateUrl: './movements.component.html',
   styleUrl: './movements.component.scss'
 })
