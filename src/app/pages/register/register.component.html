@@ -65,15 +65,30 @@
       }
     </div>
 
+    <div class="col-md-6 mb-3">
+      <label>Confirm Password:</label>
+      <input mdbInput type="password" class="form-control" formControlName="confirm_password" />
+      @if (f['confirm_password'].touched && f['confirm_password'].invalid) {
+        <div class="text-danger">
+          @if (f['confirm_password'].errors?.['required']) {
+            <div>Confirm password is required.</div>
+          }
+          @if (f['confirm_password'].errors?.['passwordMismatch']) {
+            <div>Passwords do not match.</div>
+          }
+        </div>
+      }
+    </div>
+
     <div class="col-12 mb-3">
-      <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Register</button>
+      <button class="btn btn-primary" type="submit" [disabled]="!isFormReadyToSubmit()">Register</button>
     </div>
 
     <div class="text-center mt-3">
       Already have an account?
       <a class="text-primary" [routerLink]="['/login']">Login</a>
     </div>
-    
+
     @if (message) {
       <div [ngClass]="{ 'text-success': !isError, 'text-danger': isError }">
         {{ message }}
