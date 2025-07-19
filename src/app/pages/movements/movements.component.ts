@@ -26,7 +26,7 @@ export class MovementsComponent implements OnInit {
   totalPages = 1;
   emptyRows = [];
 
-  constructor(private accountService: AccountService) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.fetchMovements();

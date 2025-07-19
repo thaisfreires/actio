@@ -31,9 +31,9 @@ export const routes: Routes = [
       component: RegisterComponent
     },
     {
-      path: 'homepage',
-      component: HomeComponent
-    },
+    //   path: 'homepage',
+    //   component: HomeComponent
+    // },
 
     {
       path: 'unauthorized',
