@@ -1,21 +1,19 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { SidebarComponent } from '../sidebar/sidebar.component';
-import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { filter } from 'rxjs/operators';
+import { SidebarService } from '../../services/sidebar.service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [SidebarComponent,RouterLink,CommonModule],
+  imports: [RouterLink,CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit {
   isLoggedIn = false;
-  sidebarOpen = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private sidebarService: SidebarService) {}
 
   ngOnInit(): void {
     this.checkLoginStatus();
@@ -31,10 +29,9 @@ export class NavbarComponent implements OnInit {
   }
 
   toggleSidebar(): void {
-    this.sidebarOpen = !this.sidebarOpen;
+    this.sidebarService.toggleSidebar();
   }
-
   closeSidebar(): void {
-    this.sidebarOpen = false;
-  }
+    this.sidebarService.closeSidebar();
+  }  
 }

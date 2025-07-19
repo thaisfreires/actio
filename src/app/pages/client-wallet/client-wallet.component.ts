@@ -4,14 +4,12 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DefaultTableComponent, TableColumn } from "../../components/default-table/default-table.component";
 import { StockItem } from '../../models/stock-item';
 import { StockSearchComponent } from "../../components/stock-search/stock-search.component";
-import { NavbarComponent } from "../../components/navbar/navbar.component";
-import { FooterComponent } from "../../components/footer/footer.component";
 import { StockPurchasePopupComponent } from "../../components/stock-purchase-popup/stock-purchase-popup.component";
 import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-client-wallet',
-  imports: [CommonModule, DefaultTableComponent, StockSearchComponent, NavbarComponent, FooterComponent, StockPurchasePopupComponent],
+  imports: [CommonModule, DefaultTableComponent, StockSearchComponent,StockPurchasePopupComponent],
   templateUrl: './client-wallet.component.html',
   styleUrl: './client-wallet.component.scss'
 })
