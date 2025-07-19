@@ -29,6 +29,14 @@ export class AccountService {
       map(account => account.currentBalance)
     );
   }
+  getMovements(): Observable<any[]> {
+    // Mock data for movements
+    const movements = [
+      { date: '2023-01-01', type: 'Credit', amount: 100, description: 'Salary' },
+      { date: '2023-01-02', type: 'Debit', amount: 50, description: 'Groceries' }
+    ];
+    return of(movements);
+  }
 
 
 
