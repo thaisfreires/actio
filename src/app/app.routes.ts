@@ -55,7 +55,7 @@ export const routes: Routes = [
       component: ClientWalletComponent,
       canActivate: [roleGuard],
       data: { roles: ['CLIENT', 'ADMIN'] }
-    }
+    },
     {
       path: '**',
       redirectTo: '/unauthorized'
