@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MovementRequest, MovementResponse } from '../models/movement.model';
+import { MovementRequest, Movement } from '../models/movement.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -17,23 +17,23 @@ export class MovementService {
     return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }
 
-  getMovements(): Observable<MovementResponse[]> {
-    return this.http.get<MovementResponse[]>(
+  getMovements(): Observable<Movement[]> {
+    return this.http.get<Movement[]>(
       `${this.baseUrl}/history`,
       { headers: this.getAuthHeaders() }
     );
   }
 
-  deposit(request: MovementRequest): Observable<MovementResponse> {
-    return this.http.post<MovementResponse>(
+  deposit(request: MovementRequest): Observable<Movement> {
+    return this.http.post<Movement>(
       `${this.baseUrl}/deposit`,
       request,
       { headers: this.getAuthHeaders() }
     );
   }
 
-  rescue(request: MovementRequest): Observable<MovementResponse> {
-    return this.http.post<MovementResponse>(
+  rescue(request: MovementRequest): Observable<Movement> {
+    return this.http.post<Movement>(
       `${this.baseUrl}/rescue`,
       request,
       { headers: this.getAuthHeaders() }
