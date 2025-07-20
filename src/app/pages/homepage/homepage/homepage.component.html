@@ -4,8 +4,6 @@
   <div class="bg-white border rounded-4 p-4 mb-4" style="border-color: #dee2e6;">
     <h5 class="fw-semibold mb-3 modern-heading">Portfolio</h5>
 
-
-
       <div *ngIf="stockItems.length === 0" class="text-center text-muted py-5">
         <i class="fas fa-box-open fa-2x mb-3"></i>
         <h5 class="fw-semibold">Você ainda não comprou nenhuma ação</h5>
@@ -15,7 +13,7 @@
 
     <!-- User Stock Items -->
     <div *ngIf="stockItems.length > 0" class="row gy-4">
-      <div *ngFor="let stock of stockItems" class="col-md-6 col-lg-4">
+      <div *ngFor="let stock of visibleStockItems" class="col-md-6 col-lg-4">
         <div class="d-flex align-items-center border rounded-4 p-3 clean-card">
 
           <!-- Icon -->
@@ -57,8 +55,6 @@
   </div>
 </div>
 
-
-
 <!-- Dashboard Section -->
 <div class="row g-4 px-3 py-4 align-items-stretch">
 
@@ -77,8 +73,10 @@
     [showXAxisLabel]="true"
     [showYAxisLabel]="true"
     [xAxisLabel]="'Date'"
-    [yAxisLabel]="'Total Value (€)'"
-    [autoScale]="true"
+    [yAxisLabel]="'Investment Performance (€)'"
+    [autoScale]="false"
+    [yScaleMin]="yMin"
+    [yScaleMax]="yMax"
     [animations]="true"
     [gradient]="true"
     [tooltipDisabled]="false"
@@ -86,7 +84,6 @@
 
   </div>
 </div>
-
 
   <!-- Right Column: Balance + Watchlist -->
   <div class="col-md-4 d-flex flex-column gap-3">
@@ -114,11 +111,9 @@
 
 </div>
 
-
-
     <!-- Watchlist -->
     <div class="card border rounded-4 p-3 flex-grow-1">
-      <app-watchlist [stockItems]="stockItemsForFavorites"></app-watchlist>
+      <app-watchlist [stockItems]="mockStockItemsForFavorites"></app-watchlist>
     </div>
   </div>
 </div>
