@@ -4,12 +4,12 @@
   <div class="bg-white border rounded-4 p-4 mb-4" style="border-color: #dee2e6;">
     <h5 class="fw-semibold mb-3 modern-heading">Portfolio</h5>
 
-      <div *ngIf="stockItems.length === 0" class="text-center text-muted py-5">
-        <i class="fas fa-box-open fa-2x mb-3"></i>
-        <h5 class="fw-semibold">Você ainda não comprou nenhuma ação</h5>
-        <p class="small">Explore o mercado e comece sua jornada de investimentos!</p>
-        <a href="/wallet" class="btn btn-purple mt-2">Ver ações disponíveis</a>
-      </div>
+    <div *ngIf="stockItems.length === 0" class="text-center text-muted py-5">
+      <i class="fas fa-box-open fa-2x mb-3"></i>
+      <h5 class="fw-semibold">You haven’t purchased any stocks yet</h5>
+      <p class="small">Explore the market and start your investment journey!</p>
+      <a href="/wallet" class="btn btn-purple mt-2">View available stocks</a>
+    </div>
 
     <!-- User Stock Items -->
     <div *ngIf="stockItems.length > 0" class="row gy-4">
