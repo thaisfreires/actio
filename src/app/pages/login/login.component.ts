@@ -3,11 +3,11 @@ import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule,ReactiveFormsModule,MdbFormsModule, CommonModule],
+  imports: [FormsModule,ReactiveFormsModule,MdbFormsModule, CommonModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -19,14 +19,14 @@ export class LoginComponent {
   constructor(private authService: AuthService, private fb:FormBuilder, private router: Router) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(9)]],
+      password: ['', [Validators.required]]
     });
   }
 
   onLogin(valid: boolean) {
     console.log("Form valid:" , valid);
     if(!valid) return;
-    
+
 
     const userLogin = this.form.value;
 
@@ -34,7 +34,7 @@ export class LoginComponent {
       next: (response) => {
         this.isError = false;
         console.log(response);
-        this.redirect(); 
+        this.redirect();
       },
       error: (err) => {
         this.form.reset();
@@ -44,12 +44,12 @@ export class LoginComponent {
       },
     });
   }
-  
+
   redirect() {
     this.router.navigate(['/dashboard']);
   }
   get f() {
     return this.form.controls;
   }
-  
+
 }
