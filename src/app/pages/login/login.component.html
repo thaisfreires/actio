@@ -3,8 +3,8 @@
     <h2 class="form-title">Login</h2>
     <p class="text-center">Please enter your credentials to login.</p>
     <form (ngSubmit)="onLogin(form.valid)" [formGroup]="form">
-      <div class="row">
-        <div class="col-12 mb-3">
+      <div class="row justify-content-center">
+        <div class="col-md-6 mb-3">
           <label>Email:</label>
           <input
             mdbInput
@@ -22,44 +22,53 @@
           </div>
           }
         </div>
-        <div class="col-12 mb-3">
-          <label>Password:</label>
-          <input
-            mdbInput
-            type="password"
-            class="form-control"
-            formControlName="password"
-            placeholder="Enter your password"
-          />
-          @if (f['password'].touched && f['password'].invalid) {
-          <div class="text-danger">
-            @if (f['password'].errors?.['required']) {
-            <div>Password is required.</div>
-            } @if (f['password'].errors?.['minlength']) {
-            <div>Minimum of 9 characters.</div>
-            }
+      </div>
+        <div class="row justify-content-center">
+          <div class="col-md-6 mb-3">
+            <label>Password:</label>
+            <input
+              mdbInput
+              type="password"
+              class="form-control"
+              formControlName="password"
+              placeholder="Enter your password"
+            />
+            @if (f['password'].touched && f['password'].invalid) {
+            <div class="text-danger">
+              @if (f['password'].errors?.['required']) {
+              <div>Password is required.</div>
+              } @if (f['password'].errors?.['minlength']) {
+              <div>Minimum of 9 characters.</div>
+              }
           </div>
           }
         </div>
-        <div class="col-12 mb-3 text-center">
-          <button
-            class="btn btn-primary"
-            type="submit"
-            [disabled]="form.invalid"
-          >
-            Login
-          </button>
-          <div class="text-center mt-3">
-            Don't have an account?
-            <a class="text-primary" [routerLink]="['/register']"> Sign up</a>
+      </div>
+        <div class="row justify-content-center">
+          <div class="col-md-6 mb-3 text-center">
+            <button
+              class="btn btn-primary"
+              type="submit"
+              [disabled]="form.invalid"
+            >
+              Login
+            </button>
+            <div class="text-center mt-3">
+              Don't have an account?
+              <a class="text-primary" [routerLink]="['/register']"> Sign up</a>
+            </div>
+            <div class="text-center mt-3">
+              Back to 
+              <a class="text-primary" [routerLink]="['/homepage']"> Homepage</a>
+            </div>
           </div>
         </div>
+        
         @if (isError) {
         <div [ngClass]="{ 'text-danger': isError }">
           {{ message }}
         </div>
         }
-      </div>
     </form>
   </div>
   <div class="branding-container">
