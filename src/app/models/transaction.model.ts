@@ -6,7 +6,6 @@ export interface TransactionResponse {
     transactionType: string;
     totalValue: number;
     dateTime: Date;
-
 }
 
 export interface TransactionRequest {
