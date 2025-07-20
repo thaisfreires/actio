@@ -34,4 +34,7 @@ export class TransactionService {
       })
     );
   }
+  getAll(): Observable<TransactionResponse[]> {
+    return this.http.get<TransactionResponse[]>(`${this.bseUrl}/getAll`);
+  }
 }
