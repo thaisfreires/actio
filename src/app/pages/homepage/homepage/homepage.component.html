@@ -1,50 +1,55 @@
 
-
 <!-- My Portfolio Section -->
 <div class="p-3">
   <div class="bg-white border rounded-4 p-4 mb-4" style="border-color: #dee2e6;">
     <h5 class="fw-semibold mb-3 modern-heading">Portfolio</h5>
 
+    <div *ngIf="stockItems.length === 0" class="text-center text-muted py-5">
+      <i class="fas fa-box-open fa-2x mb-3"></i>
+      <h5 class="fw-semibold">You haven’t purchased any stocks yet</h5>
+      <p class="small">Explore the market and start your investment journey!</p>
+      <a href="/wallet" class="btn btn-purple mt-2">View available stocks</a>
+    </div>
 
-    <div class="row gy-4">
-      <div *ngFor="let stock of userStockItems" class="col-md-6 col-lg-4">
+    <!-- User Stock Items -->
+    <div *ngIf="stockItems.length > 0" class="row gy-4">
+      <div *ngFor="let stock of visibleStockItems" class="col-md-6 col-lg-4">
         <div class="d-flex align-items-center border rounded-4 p-3 clean-card">
 
-          <!-- Ícone -->
+          <!-- Icon -->
           <div class="icon-circle me-3">
             <i class="fas fa-chart-line"></i>
           </div>
 
-          <!-- Conteúdo -->
+          <!-- Content -->
           <div class="flex-grow-1">
             <h5 class="mb-1 fw-bold text-purple">{{ stock.stockName }}</h5>
             <div class="text-muted small">{{ stock.quantity }} shares</div>
             <div class="small text-dark mt-1">
-              {{ stock.quote.price | number:'1.2-2' }} € / share
+              {{ stock.currentValue | number:'1.2-2' }} € / share
             </div>
             <div class="fw-semibold text-dark">
-              Total: {{ getTotalValue(stock) | number:'1.2-2' }} €
+              Total: {{ getTotalCurrentValue(stock) | number:'1.2-2' }} €
             </div>
           </div>
 
-          <!-- Variação -->
+          <!-- Variation -->
           <div
             class="badge ms-3"
-            [ngClass]="{
-              'bg-success text-white': stock.quote.changePercent.includes('+'),
-              'bg-danger text-white': stock.quote.changePercent.includes('-')
-            }"
+            [ngClass]="stock.dailyVariation.includes('-') ? 'bg-danger text-white' : 'bg-success text-white'"
           >
             <i
-              [ngClass]="{
-                'fas fa-arrow-up': stock.quote.changePercent.includes('+'),
-                'fas fa-arrow-down': stock.quote.changePercent.includes('-')
-              }"
+              [ngClass]="stock.dailyVariation.includes('-') ? 'fas fa-arrow-down' : 'fas fa-arrow-up'"
               class="me-1"
             ></i>
-            {{ stock.quote.changePercent }}
+            {{ stock.dailyVariation }}
           </div>
         </div>
+      </div>
+      <div>
+        <a href="/wallet" class="btn btn-link">
+          Explore the full list
+        </a>
       </div>
     </div>
   </div>
@@ -68,16 +73,17 @@
     [showXAxisLabel]="true"
     [showYAxisLabel]="true"
     [xAxisLabel]="'Date'"
-    [yAxisLabel]="'Total Value (€)'"
-    [autoScale]="true"
+    [yAxisLabel]="'Investment Performance (€)'"
+    [autoScale]="false"
+    [yScaleMin]="yMin"
+    [yScaleMax]="yMax"
     [animations]="true"
     [gradient]="true"
     [tooltipDisabled]="false"
   ></ngx-charts-area-chart>
-  
+
   </div>
 </div>
-
 
   <!-- Right Column: Balance + Watchlist -->
   <div class="col-md-4 d-flex flex-column gap-3">
@@ -105,17 +111,14 @@
 
 </div>
 
-
-
     <!-- Watchlist -->
     <div class="card border rounded-4 p-3 flex-grow-1">
-      <app-watchlist [stockItems]="stockItems"></app-watchlist>
+      <app-watchlist [stockItems]="mockStockItemsForFavorites"></app-watchlist>
     </div>
   </div>
 </div>
 
 
-  
 
 
-  
+

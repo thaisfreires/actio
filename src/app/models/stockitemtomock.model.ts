@@ -1,8 +1,8 @@
 
 
-export interface StockItem{
+export interface StockItemToMock{
     id: number;               // id do stock
-    stockName: string;        // ex: "NOS.LS"        
+    stockName: string;        // ex: "NOS.LS"
     quote: {
         price: number;
         changePercent: string;
