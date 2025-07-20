@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { TransactionService } from '../../services/transaction.service';
 import { TransactionResponse } from '../../models/transaction.model';
+import { DefaultTableComponent, TableColumn } from '../../components/default-table/default-table.component';
 
 @Component({
   selector: 'app-transactions',
-  imports: [],
+  imports: [DefaultTableComponent],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss'
 })
 export class TransactionsComponent implements OnInit{
   transactions: TransactionResponse[] = [];
 
-  tableColumns = [
+  tableColumns: TableColumn[]= [
     { key: 'dateTime', label: 'Date', align: 'center' },
-    { key: 'stockSymbol', label: 'Symbol', align: 'center' },
-    { key: 'stockName', label: 'Name', align: 'start' },
+    { key: 'stockId', label: 'Stock Id', align: 'start' },
     { key: 'quantity', label: 'Qty', align: 'center' },
     { key: 'price', label: 'Price', align: 'end', format: (val: number) => `$${val.toFixed(2)}` },
     { key: 'total', label: 'Total', align: 'end', format: (val: number) => `$${val.toFixed(2)}` },
