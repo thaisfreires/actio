@@ -1,0 +1,24 @@
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .footer {
+    margin-top: auto; /* Push footer to bottom */
+  }
+  .main-content {
+    padding: 1rem;
+  }
+  
+  .layout-container {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+  }
+  

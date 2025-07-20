@@ -1,23 +1,23 @@
-@if(showLayout){
+<div class="page-wrapper d-flex flex-column min-vh-100">
+  @if(showLayout){
   <app-navbar></app-navbar>
-}
-
-<div class="layout-container">
-  @if(showLayout && isLoggedIn){
-  <app-sidebar
-    [isOpen]="sidebarOpen"
-    (close)="sidebarService.closeSidebar()"
-  ></app-sidebar>
   }
-  <main
-    class="main-content"
-    [class.with-sidebar]="showLayout && isLoggedIn && sidebarOpen"
-  >
-    <router-outlet></router-outlet>
-    @if(showLayout){
-      <app-footer></app-footer>
-    }
-    
-  </main>
-</div>
 
+  <div class="layout-container d-flex">
+    @if(showLayout && isLoggedIn){
+    <app-sidebar
+      [isOpen]="sidebarOpen"
+      (close)="sidebarService.closeSidebar()"
+    ></app-sidebar>
+    }
+    <main
+      class="main-content flex-grow-1"
+      [class.with-sidebar]="showLayout && isLoggedIn && sidebarOpen"
+    >
+      <router-outlet></router-outlet>  
+    </main>
+  </div>
+  @if(showLayout){
+    <app-footer></app-footer>
+    }
+</div>
