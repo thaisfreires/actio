@@ -24,13 +24,15 @@ import { StockItem } from '../../../models/stock-item';
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss'
 })
+
 export class HomepageComponent {
 
-  userStockItems: StockItem[] = [];
-  loadMockStockItems: boolean = false;
+  userStockPortfolio: StockItem[] = [];
+  mockUserStockPortfolio: StockItem[] = [];
+  loadMockStockForPortfolio: boolean = false;
 
-  stockItems: StockItemToMock[] = [];
-  mockUserStockItems: UserStockItem[] = [];
+ stockItemsForFavorites: StockItemToMock[] = [];
+
   accountStockHistory: AccountStockHistory[] = [];
   transactions: Transaction[] = [];
 
@@ -51,63 +53,61 @@ export class HomepageComponent {
     this.walletService.getWallet()
     .subscribe({
       next: (response: StockItem[]) => {
-        this.userStockItems = response.map(row => ({
+        this.userStockPortfolio = response.map(row => ({
           ...row,
           position: row.quantity * row.currentValue
         }));
       },
       error: (err) => {
-        this.loadMockStockItems = true;
+        this.loadMockStockForPortfolio = true;
         console.error('Unable to retrieve wallet information from the server', err);
       }
   });
-
 
     this.loadMockData();
     this.calculateInvestments();
   }
 
+
+  get stockItems() {
+    const stockList = this.loadMockStockForPortfolio ? this.mockUserStockPortfolio : this.userStockPortfolio;
+    return  stockList.length > 6 ? stockList.slice(0, 6) : stockList;
+  }
+
   loadMockData(): void {
-    this.mockUserStockItems = [
+    this.mockUserStockPortfolio = [
       {
-        id: 1,
+        stockId: 1,
         stockName: 'NOS.LS',
         quantity: 50,
-        quote: {
-          price: 3.60,
-          changePercent: '-0.89%'
-        }
+        currentValue: 3.83,
+        dailyVariation: '+0.13%'
       },
       {
-        id: 2,
-        stockName: 'BCP.LS',
-        quantity: 100,
-        quote: {
-          price: 0.21,
-          changePercent: '+1.45%'
-        }
+        stockId: 2,
+        stockName: 'EDPR.LS',
+        quantity: 40,
+        currentValue: 15.42,
+        dailyVariation: '+0.67%'
       },
       {
-        id: 3,
-        stockName: 'BCP.LS',
-        quantity: 100,
-        quote: {
-          price: 0.21,
-          changePercent: '+1.45%'
-        }
+        stockId: 3,
+        stockName: 'OR.PA',
+        quantity: 20,
+        currentValue: 437.90,
+        dailyVariation: '+0.45%'
       },
       {
-        id: 4,
-        stockName: 'BCP.LS',
-        quantity: 100,
-        quote: {
-          price: 0.21,
-          changePercent: '+1.45%'
-        }
-      }
+        stockId: 4,
+        stockName: 'AI.PA',
+        quantity: 30,
+        currentValue: 170.10,
+        dailyVariation: '+0.28%'
+      },
+
     ];
 
-    this.stockItems = [
+    this.stockItemsForFavorites = [
       {
         id: 2,
         stockName: 'BCP.LS',
@@ -219,8 +219,8 @@ export class HomepageComponent {
       .filter(t => t.transaction_type === TransactionType.Buy)
       .reduce((sum, t) => sum + t.negotiation_price * t.quantity, 0);
 
-    this.totalBalance = this.mockUserStockItems
-      .reduce((sum, s) => sum + s.quantity * s.quote.price, 0);
+    this.totalBalance = this.mockUserStockPortfolio
+      .reduce((sum, s) => sum + s.quantity * s.currentValue, 0);
 
     this.percentageChange = this.totalInvested === 0
       ? 0
