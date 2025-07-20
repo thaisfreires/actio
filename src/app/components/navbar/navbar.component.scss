@@ -20,12 +20,26 @@
   }
   
   .nav-left {
+    width: 120px;
+    min-width: 120px;
     display: flex;
     align-items: center;
     gap: 1rem;
+    overflow: hidden;
   
     .logo {
-      height: 70px;
+      height:80px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .logo img {
+      max-height: 100%;
+      width: auto;
+      object-fit: contain;
+      display: block;
     }
   
     .menu-btn {
