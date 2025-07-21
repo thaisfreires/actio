@@ -33,10 +33,12 @@ export class MovementsComponent implements OnInit {
         `<span class="badge bg-${value === 'DEPOSIT' ? 'success' : 'danger'}">${value}</span>`,
     },
     {
+
       key: 'dateTime',
       label: 'Date',
       align: 'center',
-      format: (value: string) => new Date(value).toLocaleString(),
+      format: (value: string) => value,
+
     },
   ];
 

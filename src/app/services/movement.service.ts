@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MovementRequest, Movement } from '../models/movement.model';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
+import { DateTime } from 'luxon';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,25 @@ export class MovementService {
     return this.http.get<Movement[]>(
       `${this.baseUrl}/history`,
       { headers: this.getAuthHeaders() }
+    ).pipe(
+      map(movements =>
+        movements.map((m, index) => {
+          const isoString = String(m.dateTime).trim();
+          const dt = DateTime.fromISO(isoString);
+
+          return {
+            ...m,
+            dateTime: dt.isValid ? dt.toFormat("dd/MM/yyyy HH:mm") : "Invalid date"
+          };
+        })
+      ),
+      catchError(error => {
+        console.error("Error loading movements:", error);
+        return of([]);
+      })
     );
   }
+
 
   deposit(request: MovementRequest): Observable<Movement> {
     return this.http.post<Movement>(
