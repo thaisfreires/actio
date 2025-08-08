@@ -67,21 +67,21 @@
   <section class="section">
     <h2 class="section-title">Why Choose Actio</h2>
     <div class="card-container">
-      <div class="card">
-        <div class="card-image">
-          <img [src]="image7" alt="Security First" />
-        </div>
-        <h3>Security First</h3>
-        <p>We prioritize your safety with advanced protocols and compliance with global standards.</p>
-      </div>
-  
-      <div class="card">
-        <div class="card-image">
-          <img [src]="image8" alt="Elegant Experience" />
-        </div>
-        <h3>Elegant Experience</h3>
-        <p>Enjoy a refined, intuitive interface designed for clarity, speed, and sophistication.</p>
-      </div>
+      
+        <a class="card card-link" [routerLink]="['/about']">
+          <div class="card-image">
+            <img [src]="image7" alt="Security First" />
+          </div>
+          <h3>Security First</h3>
+          <p>We prioritize your safety with advanced protocols and compliance with global standards.</p>
+       </a>          
+        <a class="card card-link" [routerLink]="['/about']">
+          <div class="card-image">
+            <img [src]="image8" alt="Elegant Experience" />
+          </div>
+          <h3>Elegant Experience</h3>
+          <p>Enjoy a refined, intuitive interface designed for clarity, speed, and sophistication.</p>
+        </a>
     </div>
   </section>
   
