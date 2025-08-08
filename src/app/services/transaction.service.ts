@@ -1,7 +1,8 @@
 import { TransactionRequest, TransactionResponse } from './../models/transaction.model';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DateTime } from 'luxon';
 
 @Injectable({
   providedIn: 'root'
@@ -34,4 +35,27 @@ export class TransactionService {
       })
     );
   }
+
+  getAll(): Observable<TransactionResponse[]> {
+    return this.http.get<TransactionResponse[]>(`${this.bseUrl}/getAll`).pipe(
+      map(transactions =>
+        transactions.map(t => {
+          console.log(`Raw: [${t.transactionDateTime}]`);
+         const isoString = String(t.transactionDateTime).trim();
+          const dt = DateTime.fromISO(isoString);
+
+          return {
+            ...t,
+            dateTime: dt.isValid ? dt.toFormat("dd/MM/yyyy HH:mm") : "Invalid date"
+          };
+        })
+      ),
+      catchError(error => {
+        console.error("Error loading transactions:", error);
+        return of([]);
+      })
+    );
+  }
+
 }
+

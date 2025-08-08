@@ -1,7 +1,8 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { StockItem, StockQuantityResponse } from '../models/stock-item';
+import { WalletResponse } from '../models/wallet-response';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,13 @@ export class WalletService {
     return this.http.get<StockQuantityResponse>(url);
   }
 
+  getWalletInfo(): Observable<WalletResponse[]> {
+    return this.http.get<WalletResponse[]>(this.walletUrl).pipe(
+      catchError(error => {
+        console.error('Error fetching wallet', error);
+        return of([]);
+      })
+    );
+  }
 
 }

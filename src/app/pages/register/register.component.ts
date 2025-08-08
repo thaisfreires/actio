@@ -40,7 +40,6 @@ export class RegisterComponent {
         this.message = 'User registered successfully!';
         this.form.reset();
         this.isError = false;
-        console.log(res);
       },
       error: (err) => {
         this.message = 'Fail to register: ' + (err.error?.message || 'Please, contact the support.');
