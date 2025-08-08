@@ -57,12 +57,7 @@ export const routes: Routes = [
       canActivate: [roleGuard],
       data: { roles: ['CLIENT', 'ADMIN'] }
     },
-    {
-      path: '**',
-      redirectTo: '/unauthorized'
-    },
-
-    {
+     {
       path: 'movements',
       component: MovementsComponent,
       canActivate: [roleGuard],
@@ -74,5 +69,8 @@ export const routes: Routes = [
       canActivate: [roleGuard],
       data: { roles: ['CLIENT', 'ADMIN'] }
     },
-
+    {
+      path: '**',
+      redirectTo: '/unauthorized'
+    }
 ];
