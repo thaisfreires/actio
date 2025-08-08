@@ -7,7 +7,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     '/login',
     '/users/save'
   ];
-  console.log('token', token);
+  console.log('token sent');
   const isPublic = publicUrls.some(url => req.url.includes(url));
 
   if (token && !isPublic) {
