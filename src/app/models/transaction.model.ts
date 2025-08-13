@@ -1,12 +1,14 @@
-export interface TransactionResponse {
-    transactionId: number;
-    stockId: number;
-    quantity: number;
-    value: number;
-    transactionType: string;
-    totalValue: number;
-    dateTime: Date;
+import { Stock } from "./stock.model";
 
+export interface TransactionResponse {
+  transactionId: number;
+  transactionType: string;
+  transactionTypeId: number;
+  stockSymbol: string;
+  stockId: number;
+  quantity: number;
+  value: number;
+  transactionDateTime: string;
 }
 
 export interface TransactionRequest {

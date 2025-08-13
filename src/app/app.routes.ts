@@ -8,6 +8,8 @@ import { roleGuard } from './auth/role.guard';
 import { ClientWalletComponent } from './pages/client-wallet/client-wallet.component';
 import { AboutComponent } from './pages/about/about.component';
 import { HomeComponent } from './pages/home/home.component';
+import { MovementsComponent } from './pages/movements/movements.component';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
 
 export const routes: Routes = [
     {
@@ -33,7 +35,6 @@ export const routes: Routes = [
       path: 'homepage',
       component: HomeComponent
     },
-
     {
       path: 'unauthorized',
       component: UnauthorizedPageComponent
@@ -56,9 +57,20 @@ export const routes: Routes = [
       canActivate: [roleGuard],
       data: { roles: ['CLIENT', 'ADMIN'] }
     },
+     {
+      path: 'movements',
+      component: MovementsComponent,
+      canActivate: [roleGuard],
+      data: { roles: ['CLIENT', 'ADMIN'] }
+    },
+    {
+      path: 'transactions',
+      component: TransactionsComponent,
+      canActivate: [roleGuard],
+      data: { roles: ['CLIENT', 'ADMIN'] }
+    },
     {
       path: '**',
       redirectTo: '/unauthorized'
     }
-
 ];
